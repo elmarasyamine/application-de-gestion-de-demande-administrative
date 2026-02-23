@@ -1,0 +1,601 @@
+version: "3.1"
+
+stories:
+
+# ================================================================
+# SALUTATIONS SIMPLES
+# ================================================================
+- story: salutation simple
+  steps:
+    - intent: saluer
+    - action: utter_saluer
+
+- story: salutation puis voir demandes
+  steps:
+    - intent: saluer
+    - action: utter_saluer
+    - intent: voir_demandes
+    - action: action_voir_demandes
+
+- story: salutation puis aide
+  steps:
+    - intent: saluer
+    - action: utter_saluer
+    - intent: demander_aide
+    - action: utter_aide
+
+- story: salutation puis soumettre
+  steps:
+    - intent: saluer
+    - action: utter_saluer
+    - intent: soumettre_demande
+    - action: utter_soumettre_demande
+
+- story: salutation puis types
+  steps:
+    - intent: saluer
+    - action: utter_saluer
+    - intent: types_demandes
+    - action: utter_types_demandes
+
+# ================================================================
+# AU REVOIR
+# ================================================================
+- story: au revoir
+  steps:
+    - intent: au_revoir
+    - action: utter_au_revoir
+
+# ================================================================
+# REMERCIEMENTS
+# ================================================================
+- story: remerciements
+  steps:
+    - intent: remercier
+    - action: utter_remercier
+
+- story: remerciements puis au revoir
+  steps:
+    - intent: remercier
+    - action: utter_remercier
+    - intent: au_revoir
+    - action: utter_au_revoir
+
+# ================================================================
+# VOIR DEMANDES
+# ================================================================
+- story: voir demandes
+  steps:
+    - intent: voir_demandes
+    - action: action_voir_demandes
+
+- story: voir demandes puis soumettre
+  steps:
+    - intent: voir_demandes
+    - action: action_voir_demandes
+    - intent: soumettre_demande
+    - action: utter_soumettre_demande
+
+- story: voir demandes puis chercher reference
+  steps:
+    - intent: voir_demandes
+    - action: action_voir_demandes
+    - intent: chercher_reference
+    - action: action_chercher_reference
+
+- story: voir demandes puis delais
+  steps:
+    - intent: voir_demandes
+    - action: action_voir_demandes
+    - intent: delais_traitement
+    - action: utter_delais_traitement
+
+# ================================================================
+# CHERCHER PAR REFERENCE
+# ================================================================
+- story: chercher reference
+  steps:
+    - intent: chercher_reference
+    - action: action_chercher_reference
+
+- story: chercher reference puis voir demandes
+  steps:
+    - intent: chercher_reference
+    - action: action_chercher_reference
+    - intent: voir_demandes
+    - action: action_voir_demandes
+
+# ================================================================
+# SOUMETTRE UNE DEMANDE
+# ================================================================
+- story: soumettre demande
+  steps:
+    - intent: soumettre_demande
+    - action: utter_soumettre_demande
+
+- story: soumettre puis types
+  steps:
+    - intent: soumettre_demande
+    - action: utter_soumettre_demande
+    - intent: types_demandes
+    - action: utter_types_demandes
+
+- story: soumettre puis delais
+  steps:
+    - intent: soumettre_demande
+    - action: utter_soumettre_demande
+    - intent: delais_traitement
+    - action: utter_delais_traitement
+
+- story: soumettre puis fichier joint
+  steps:
+    - intent: soumettre_demande
+    - action: utter_soumettre_demande
+    - intent: faq_fichier_joint
+    - action: utter_faq_fichier_joint
+
+# ================================================================
+# TYPES DE DEMANDES
+# ================================================================
+- story: types de demandes
+  steps:
+    - intent: types_demandes
+    - action: utter_types_demandes
+
+- story: types puis soumettre
+  steps:
+    - intent: types_demandes
+    - action: utter_types_demandes
+    - intent: soumettre_demande
+    - action: utter_soumettre_demande
+
+- story: types puis attestation travail
+  steps:
+    - intent: types_demandes
+    - action: utter_types_demandes
+    - intent: faq_attestation_travail
+    - action: utter_faq_attestation_travail
+
+- story: types puis conge
+  steps:
+    - intent: types_demandes
+    - action: utter_types_demandes
+    - intent: faq_conge
+    - action: utter_faq_conge
+
+# ================================================================
+# DELAIS DE TRAITEMENT
+# ================================================================
+- story: delais traitement
+  steps:
+    - intent: delais_traitement
+    - action: utter_delais_traitement
+
+# ================================================================
+# CONTACT
+# ================================================================
+- story: contact
+  steps:
+    - intent: contact
+    - action: utter_contact
+
+- story: contact puis messagerie
+  steps:
+    - intent: contact
+    - action: utter_contact
+    - intent: faq_messagerie
+    - action: utter_faq_messagerie
+
+# ================================================================
+# AIDE
+# ================================================================
+- story: aide
+  steps:
+    - intent: demander_aide
+    - action: utter_aide
+
+- story: aide puis types
+  steps:
+    - intent: demander_aide
+    - action: utter_aide
+    - intent: types_demandes
+    - action: utter_types_demandes
+
+- story: aide puis soumettre
+  steps:
+    - intent: demander_aide
+    - action: utter_aide
+    - intent: soumettre_demande
+    - action: utter_soumettre_demande
+
+# ================================================================
+# FAQ ATTESTATION TRAVAIL
+# ================================================================
+- story: faq attestation travail
+  steps:
+    - intent: faq_attestation_travail
+    - action: utter_faq_attestation_travail
+
+- story: attestation travail puis soumettre
+  steps:
+    - intent: faq_attestation_travail
+    - action: utter_faq_attestation_travail
+    - intent: soumettre_demande
+    - action: utter_soumettre_demande
+
+# ================================================================
+# FAQ ATTESTATION SALAIRE
+# ================================================================
+- story: faq attestation salaire
+  steps:
+    - intent: faq_attestation_salaire
+    - action: utter_faq_attestation_salaire
+
+- story: attestation salaire puis soumettre
+  steps:
+    - intent: faq_attestation_salaire
+    - action: utter_faq_attestation_salaire
+    - intent: soumettre_demande
+    - action: utter_soumettre_demande
+
+# ================================================================
+# FAQ CONGE
+# ================================================================
+- story: faq conge
+  steps:
+    - intent: faq_conge
+    - action: utter_faq_conge
+
+- story: conge puis soumettre
+  steps:
+    - intent: faq_conge
+    - action: utter_faq_conge
+    - intent: soumettre_demande
+    - action: utter_soumettre_demande
+
+# ================================================================
+# FAQ ORDRE DE MISSION
+# ================================================================
+- story: faq ordre mission
+  steps:
+    - intent: faq_ordre_mission
+    - action: utter_faq_ordre_mission
+
+# ================================================================
+# FAQ PROBLEME TECHNIQUE
+# ================================================================
+- story: faq probleme technique
+  steps:
+    - intent: faq_probleme_technique
+    - action: utter_faq_probleme_technique
+
+- story: probleme puis contact
+  steps:
+    - intent: faq_probleme_technique
+    - action: utter_faq_probleme_technique
+    - intent: contact
+    - action: utter_contact
+
+# ================================================================
+# FAQ INSCRIPTION
+# ================================================================
+- story: faq inscription
+  steps:
+    - intent: faq_inscription
+    - action: utter_faq_inscription
+
+- story: inscription puis connexion
+  steps:
+    - intent: faq_inscription
+    - action: utter_faq_inscription
+    - intent: faq_connexion
+    - action: utter_faq_connexion
+
+# ================================================================
+# FAQ CONNEXION
+# ================================================================
+- story: faq connexion
+  steps:
+    - intent: faq_connexion
+    - action: utter_faq_connexion
+
+- story: connexion puis mot de passe
+  steps:
+    - intent: faq_connexion
+    - action: utter_faq_connexion
+    - intent: faq_mot_de_passe
+    - action: utter_faq_mot_de_passe
+
+# ================================================================
+# FAQ MOT DE PASSE
+# ================================================================
+- story: faq mot de passe
+  steps:
+    - intent: faq_mot_de_passe
+    - action: utter_faq_mot_de_passe
+
+# ================================================================
+# FAQ MODIFIER DEMANDE
+# ================================================================
+- story: faq modifier demande
+  steps:
+    - intent: faq_modifier_demande
+    - action: utter_faq_modifier_demande
+
+# ================================================================
+# FAQ ANNULER DEMANDE
+# ================================================================
+- story: faq annuler demande
+  steps:
+    - intent: faq_annuler_demande
+    - action: utter_faq_annuler_demande
+
+# ================================================================
+# FAQ TELECHARGER DOCUMENT
+# ================================================================
+- story: faq telecharger document
+  steps:
+    - intent: faq_telecharger_document
+    - action: utter_faq_telecharger_document
+
+- story: telecharger puis voir demandes
+  steps:
+    - intent: faq_telecharger_document
+    - action: utter_faq_telecharger_document
+    - intent: voir_demandes
+    - action: action_voir_demandes
+
+# ================================================================
+# FAQ STATUT DEMANDE
+# ================================================================
+- story: faq statut demande
+  steps:
+    - intent: faq_statut_demande
+    - action: utter_faq_statut_demande
+
+- story: statut puis rejet
+  steps:
+    - intent: faq_statut_demande
+    - action: utter_faq_statut_demande
+    - intent: demande_rejetee
+    - action: utter_demande_rejetee
+
+# ================================================================
+# FAQ FICHIER JOINT
+# ================================================================
+- story: faq fichier joint
+  steps:
+    - intent: faq_fichier_joint
+    - action: utter_faq_fichier_joint
+
+# ================================================================
+# FAQ MESSAGERIE
+# ================================================================
+- story: faq messagerie
+  steps:
+    - intent: faq_messagerie
+    - action: utter_faq_messagerie
+
+# ================================================================
+# FAQ PLATEFORME
+# ================================================================
+- story: faq plateforme
+  steps:
+    - intent: faq_plateforme
+    - action: utter_faq_plateforme
+
+- story: plateforme puis inscription
+  steps:
+    - intent: faq_plateforme
+    - action: utter_faq_plateforme
+    - intent: faq_inscription
+    - action: utter_faq_inscription
+
+# ================================================================
+# FAQ HORAIRES
+# ================================================================
+- story: faq horaires
+  steps:
+    - intent: faq_horaires
+    - action: utter_faq_horaires
+
+# ================================================================
+# FAQ SECURITE
+# ================================================================
+- story: faq securite
+  steps:
+    - intent: faq_securite
+    - action: utter_faq_securite
+
+# ================================================================
+# PLAINTE / RECLAMATION
+# ================================================================
+- story: plainte
+  steps:
+    - intent: plainte
+    - action: utter_plainte
+
+- story: plainte puis contact
+  steps:
+    - intent: plainte
+    - action: utter_plainte
+    - intent: contact
+    - action: utter_contact
+
+- story: plainte puis messagerie
+  steps:
+    - intent: plainte
+    - action: utter_plainte
+    - intent: faq_messagerie
+    - action: utter_faq_messagerie
+
+# ================================================================
+# HUMEUR POSITIVE
+# ================================================================
+- story: humeur positive
+  steps:
+    - intent: humeur_positive
+    - action: utter_humeur_positive
+
+- story: positive puis au revoir
+  steps:
+    - intent: humeur_positive
+    - action: utter_humeur_positive
+    - intent: au_revoir
+    - action: utter_au_revoir
+
+# ================================================================
+# HUMEUR NEGATIVE
+# ================================================================
+- story: humeur negative
+  steps:
+    - intent: humeur_negative
+    - action: utter_humeur_negative
+
+- story: negative puis aide
+  steps:
+    - intent: humeur_negative
+    - action: utter_humeur_negative
+    - intent: demander_aide
+    - action: utter_aide
+
+- story: negative puis contact
+  steps:
+    - intent: humeur_negative
+    - action: utter_humeur_negative
+    - intent: contact
+    - action: utter_contact
+
+# ================================================================
+# QUI ES-TU
+# ================================================================
+- story: qui es tu
+  steps:
+    - intent: qui_es_tu
+    - action: utter_qui_es_tu
+
+- story: qui es tu puis aide
+  steps:
+    - intent: qui_es_tu
+    - action: utter_qui_es_tu
+    - intent: demander_aide
+    - action: utter_aide
+
+# ================================================================
+# DEMANDE REJETEE
+# ================================================================
+- story: demande rejetee
+  steps:
+    - intent: demande_rejetee
+    - action: utter_demande_rejetee
+
+- story: rejet puis soumettre
+  steps:
+    - intent: demande_rejetee
+    - action: utter_demande_rejetee
+    - intent: soumettre_demande
+    - action: utter_soumettre_demande
+
+# ================================================================
+# AFFIRMER / NIER
+# ================================================================
+- story: affirmer puis aide
+  steps:
+    - intent: affirmer
+    - action: utter_aide
+
+- story: nier puis au revoir
+  steps:
+    - intent: nier
+    - action: utter_au_revoir
+
+# ================================================================
+# PARCOURS COMPLETS (conversations typiques)
+# ================================================================
+- story: parcours complet nouveau utilisateur
+  steps:
+    - intent: saluer
+    - action: utter_saluer
+    - intent: faq_plateforme
+    - action: utter_faq_plateforme
+    - intent: faq_inscription
+    - action: utter_faq_inscription
+    - intent: remercier
+    - action: utter_remercier
+
+- story: parcours complet soumettre demande
+  steps:
+    - intent: saluer
+    - action: utter_saluer
+    - intent: types_demandes
+    - action: utter_types_demandes
+    - intent: soumettre_demande
+    - action: utter_soumettre_demande
+    - intent: remercier
+    - action: utter_remercier
+
+- story: parcours complet suivi
+  steps:
+    - intent: saluer
+    - action: utter_saluer
+    - intent: voir_demandes
+    - action: action_voir_demandes
+    - intent: chercher_reference
+    - action: action_chercher_reference
+    - intent: remercier
+    - action: utter_remercier
+
+- story: parcours probleme technique
+  steps:
+    - intent: saluer
+    - action: utter_saluer
+    - intent: faq_probleme_technique
+    - action: utter_faq_probleme_technique
+    - intent: contact
+    - action: utter_contact
+    - intent: remercier
+    - action: utter_remercier
+
+- story: parcours plainte complet
+  steps:
+    - intent: saluer
+    - action: utter_saluer
+    - intent: plainte
+    - action: utter_plainte
+    - intent: faq_messagerie
+    - action: utter_faq_messagerie
+    - intent: remercier
+    - action: utter_remercier
+
+- story: parcours FAQ conge complet
+  steps:
+    - intent: faq_conge
+    - action: utter_faq_conge
+    - intent: soumettre_demande
+    - action: utter_soumettre_demande
+    - intent: faq_fichier_joint
+    - action: utter_faq_fichier_joint
+    - intent: delais_traitement
+    - action: utter_delais_traitement
+
+- story: parcours attestation complet
+  steps:
+    - intent: faq_attestation_travail
+    - action: utter_faq_attestation_travail
+    - intent: soumettre_demande
+    - action: utter_soumettre_demande
+    - intent: delais_traitement
+    - action: utter_delais_traitement
+    - intent: remercier
+    - action: utter_remercier
+
+- story: parcours statut et rejet
+  steps:
+    - intent: voir_demandes
+    - action: action_voir_demandes
+    - intent: faq_statut_demande
+    - action: utter_faq_statut_demande
+    - intent: demande_rejetee
+    - action: utter_demande_rejetee
+    - intent: soumettre_demande
+    - action: utter_soumettre_demande

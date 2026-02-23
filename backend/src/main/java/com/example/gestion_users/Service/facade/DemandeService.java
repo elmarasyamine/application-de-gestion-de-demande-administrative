@@ -28,4 +28,6 @@ public interface DemandeService {
 
     List<Demande> consulterMesDemandes(Long idDemandeur);
 
+    Demande consulterDemandeParReference(String reference);
+
 }

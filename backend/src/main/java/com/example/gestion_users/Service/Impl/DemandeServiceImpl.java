@@ -142,4 +142,13 @@ public class DemandeServiceImpl implements DemandeService {
         return demandeRepository.findByDemandeurId(idDemandeur);
     }
 
+    @Override
+    public Demande consulterDemandeParReference(String reference) {
+        Demande demande = demandeRepository.findByReference(reference);
+        if (demande == null) {
+            throw new RuntimeException("Demande introuvable avec la r\u00e9f\u00e9rence: " + reference);
+        }
+        return demande;
+    }
+
 }

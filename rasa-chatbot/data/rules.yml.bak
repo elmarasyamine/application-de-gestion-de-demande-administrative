@@ -1,0 +1,36 @@
+version: "3.1"
+
+rules:
+
+# ========================================
+# Règle : Réponse par défaut (fallback)
+# Quand le bot ne comprend pas, il affiche une réponse par défaut
+# ========================================
+- rule: Fallback par défaut
+  steps:
+    - intent: nlu_fallback
+    - action: utter_default
+
+# ========================================
+# Règle : Salutation toujours répondue
+# ========================================
+- rule: Répondre aux salutations
+  steps:
+    - intent: saluer
+    - action: utter_saluer
+
+# ========================================
+# Règle : Au revoir toujours répondu
+# ========================================
+- rule: Répondre aux au revoir
+  steps:
+    - intent: au_revoir
+    - action: utter_au_revoir
+
+# ========================================
+# Règle : Remerciements toujours répondu
+# ========================================
+- rule: Répondre aux remerciements
+  steps:
+    - intent: remercier
+    - action: utter_remercier

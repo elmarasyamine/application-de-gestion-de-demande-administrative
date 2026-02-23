@@ -1,0 +1,190 @@
+version: "3.1"
+
+rules:
+
+# ================================================================
+# FALLBACK (quand le bot ne comprend pas)
+# ================================================================
+- rule: Fallback par defaut
+  steps:
+    - intent: nlu_fallback
+    - action: utter_default
+
+# ================================================================
+# REGLES ABSOLUES (toujours appliquees)
+# ================================================================
+- rule: Repondre aux salutations
+  steps:
+    - intent: saluer
+    - action: utter_saluer
+
+- rule: Repondre aux au revoir
+  steps:
+    - intent: au_revoir
+    - action: utter_au_revoir
+
+- rule: Repondre aux remerciements
+  steps:
+    - intent: remercier
+    - action: utter_remercier
+
+- rule: Voir les demandes
+  steps:
+    - intent: voir_demandes
+    - action: action_voir_demandes
+
+- rule: Chercher par reference
+  steps:
+    - intent: chercher_reference
+    - action: action_chercher_reference
+
+- rule: Soumettre une demande
+  steps:
+    - intent: soumettre_demande
+    - action: utter_soumettre_demande
+
+- rule: Types de demandes
+  steps:
+    - intent: types_demandes
+    - action: utter_types_demandes
+
+- rule: Delais de traitement
+  steps:
+    - intent: delais_traitement
+    - action: utter_delais_traitement
+
+- rule: Contact
+  steps:
+    - intent: contact
+    - action: utter_contact
+
+- rule: Aide generale
+  steps:
+    - intent: demander_aide
+    - action: utter_aide
+
+# ================================================================
+# REGLES FAQ
+# ================================================================
+- rule: FAQ Attestation de travail
+  steps:
+    - intent: faq_attestation_travail
+    - action: utter_faq_attestation_travail
+
+- rule: FAQ Attestation de salaire
+  steps:
+    - intent: faq_attestation_salaire
+    - action: utter_faq_attestation_salaire
+
+- rule: FAQ Conge
+  steps:
+    - intent: faq_conge
+    - action: utter_faq_conge
+
+- rule: FAQ Ordre de mission
+  steps:
+    - intent: faq_ordre_mission
+    - action: utter_faq_ordre_mission
+
+- rule: FAQ Probleme technique
+  steps:
+    - intent: faq_probleme_technique
+    - action: utter_faq_probleme_technique
+
+- rule: FAQ Inscription
+  steps:
+    - intent: faq_inscription
+    - action: utter_faq_inscription
+
+- rule: FAQ Connexion
+  steps:
+    - intent: faq_connexion
+    - action: utter_faq_connexion
+
+- rule: FAQ Mot de passe
+  steps:
+    - intent: faq_mot_de_passe
+    - action: utter_faq_mot_de_passe
+
+- rule: FAQ Modifier demande
+  steps:
+    - intent: faq_modifier_demande
+    - action: utter_faq_modifier_demande
+
+- rule: FAQ Annuler demande
+  steps:
+    - intent: faq_annuler_demande
+    - action: utter_faq_annuler_demande
+
+- rule: FAQ Telecharger document
+  steps:
+    - intent: faq_telecharger_document
+    - action: utter_faq_telecharger_document
+
+- rule: FAQ Statut demande
+  steps:
+    - intent: faq_statut_demande
+    - action: utter_faq_statut_demande
+
+- rule: FAQ Fichier joint
+  steps:
+    - intent: faq_fichier_joint
+    - action: utter_faq_fichier_joint
+
+- rule: FAQ Messagerie
+  steps:
+    - intent: faq_messagerie
+    - action: utter_faq_messagerie
+
+- rule: FAQ Plateforme
+  steps:
+    - intent: faq_plateforme
+    - action: utter_faq_plateforme
+
+- rule: FAQ Horaires
+  steps:
+    - intent: faq_horaires
+    - action: utter_faq_horaires
+
+- rule: FAQ Securite
+  steps:
+    - intent: faq_securite
+    - action: utter_faq_securite
+
+# ================================================================
+# REGLES SPECIALES
+# ================================================================
+- rule: Plainte
+  steps:
+    - intent: plainte
+    - action: utter_plainte
+
+- rule: Humeur positive
+  steps:
+    - intent: humeur_positive
+    - action: utter_humeur_positive
+
+- rule: Humeur negative
+  steps:
+    - intent: humeur_negative
+    - action: utter_humeur_negative
+
+- rule: Qui es tu
+  steps:
+    - intent: qui_es_tu
+    - action: utter_qui_es_tu
+
+- rule: Demande rejetee
+  steps:
+    - intent: demande_rejetee
+    - action: utter_demande_rejetee
+
+- rule: Affirmer
+  steps:
+    - intent: affirmer
+    - action: utter_aide
+
+- rule: Nier
+  steps:
+    - intent: nier
+    - action: utter_au_revoir

@@ -1,0 +1,179 @@
+version: "3.1"
+
+stories:
+
+# ========================================
+# Scénario : Salutations simples
+# ========================================
+- story: salutation simple
+  steps:
+    - intent: saluer
+    - action: utter_saluer
+
+# ========================================
+# Scénario : Au revoir
+# ========================================
+- story: au revoir
+  steps:
+    - intent: au_revoir
+    - action: utter_au_revoir
+
+# ========================================
+# Scénario : Remerciements
+# ========================================
+- story: remerciements
+  steps:
+    - intent: remercier
+    - action: utter_remercier
+
+# ========================================
+# Scénario : Voir ses demandes (appel API)
+# ========================================
+- story: voir demandes
+  steps:
+    - intent: voir_demandes
+    - action: action_voir_demandes
+
+# ========================================
+# Scénario : Chercher par référence (appel API)
+# ========================================
+- story: chercher reference
+  steps:
+    - intent: chercher_reference
+    - action: action_chercher_reference
+
+# ========================================
+# Scénario : Soumettre une demande
+# ========================================
+- story: soumettre demande
+  steps:
+    - intent: soumettre_demande
+    - action: utter_soumettre_demande
+
+# ========================================
+# Scénario : Types de demandes
+# ========================================
+- story: types de demandes
+  steps:
+    - intent: types_demandes
+    - action: utter_types_demandes
+
+# ========================================
+# Scénario : Délais
+# ========================================
+- story: delais traitement
+  steps:
+    - intent: delais_traitement
+    - action: utter_delais_traitement
+
+# ========================================
+# Scénario : Contact
+# ========================================
+- story: contact
+  steps:
+    - intent: contact
+    - action: utter_contact
+
+# ========================================
+# Scénario : Aide
+# ========================================
+- story: aide
+  steps:
+    - intent: demander_aide
+    - action: utter_aide
+
+# ========================================
+# Scénario : Salutation puis voir demandes
+# ========================================
+- story: salut puis demandes
+  steps:
+    - intent: saluer
+    - action: utter_saluer
+    - intent: voir_demandes
+    - action: action_voir_demandes
+
+# ========================================
+# Scénario : Salutation puis aide
+# ========================================
+- story: salut puis aide
+  steps:
+    - intent: saluer
+    - action: utter_saluer
+    - intent: demander_aide
+    - action: utter_aide
+
+# ========================================
+# Scénario : Voir demandes puis soumettre
+# ========================================
+- story: voir demandes puis soumettre
+  steps:
+    - intent: voir_demandes
+    - action: action_voir_demandes
+    - intent: soumettre_demande
+    - action: utter_soumettre_demande
+
+# ========================================
+# Scénario : Demande de types puis soumettre
+# ========================================
+- story: types puis soumettre
+  steps:
+    - intent: types_demandes
+    - action: utter_types_demandes
+    - intent: soumettre_demande
+    - action: utter_soumettre_demande
+
+# ========================================
+# Scénario : FAQ Attestation de travail
+# ========================================
+- story: faq attestation travail
+  steps:
+    - intent: faq_attestation_travail
+    - action: utter_faq_attestation_travail
+
+# ========================================
+# Scénario : FAQ Attestation de salaire
+# ========================================
+- story: faq attestation salaire
+  steps:
+    - intent: faq_attestation_salaire
+    - action: utter_faq_attestation_salaire
+
+# ========================================
+# Scénario : FAQ Congé
+# ========================================
+- story: faq conge
+  steps:
+    - intent: faq_conge
+    - action: utter_faq_conge
+
+# ========================================
+# Scénario : FAQ Ordre de mission
+# ========================================
+- story: faq ordre mission
+  steps:
+    - intent: faq_ordre_mission
+    - action: utter_faq_ordre_mission
+
+# ========================================
+# Scénario : FAQ Problème technique
+# ========================================
+- story: faq probleme technique
+  steps:
+    - intent: faq_probleme_technique
+    - action: utter_faq_probleme_technique
+
+# ========================================
+# Scénario : Utilisateur dit oui (autre question)
+# ========================================
+- story: affirmer puis aide
+  steps:
+    - intent: affirmer
+    - action: utter_aide
+
+# ========================================
+# Scénario : Utilisateur dit non
+# ========================================
+- story: nier puis au revoir
+  steps:
+    - intent: nier
+    - action: utter_au_revoir

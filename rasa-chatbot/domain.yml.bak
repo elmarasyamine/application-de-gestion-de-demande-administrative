@@ -1,0 +1,331 @@
+version: "3.1"
+
+# ========================================
+# Intents (intentions reconnues par le NLU)
+# ========================================
+intents:
+  - saluer
+  - au_revoir
+  - remercier
+  - voir_demandes
+  - chercher_reference
+  - soumettre_demande
+  - types_demandes
+  - delais_traitement
+  - contact
+  - demander_aide
+  - faq_attestation_travail
+  - faq_attestation_salaire
+  - faq_conge
+  - faq_ordre_mission
+  - faq_probleme_technique
+  - affirmer
+  - nier
+
+# ========================================
+# Entities (données extraites des messages)
+# ========================================
+entities:
+  - reference
+
+# ========================================
+# Slots (mémoire du chatbot pendant la conversation)
+# ========================================
+slots:
+  reference:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: reference
+  user_id:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: custom
+
+# ========================================
+# Responses (réponses textuelles du bot)
+# ========================================
+responses:
+  utter_saluer:
+    - text: |
+        Bonjour ! 👋 Je suis l'assistant virtuel de la plateforme de gestion des demandes administratives.
+
+        Comment puis-je vous aider aujourd'hui ?
+      buttons:
+        - title: "📋 Voir mes demandes"
+          payload: "/voir_demandes"
+        - title: "➕ Soumettre une demande"
+          payload: "/soumettre_demande"
+        - title: "📂 Types de demandes"
+          payload: "/types_demandes"
+        - title: "❓ Aide"
+          payload: "/demander_aide"
+
+  utter_au_revoir:
+    - text: |
+        Au revoir ! 👋 N'hésitez pas à revenir si vous avez besoin d'aide.
+
+        Bonne continuation !
+
+  utter_remercier:
+    - text: |
+        Je vous en prie ! N'hésitez pas si vous avez d'autres questions.
+
+        Bonne journée ! 😊
+      buttons:
+        - title: "📋 Voir mes demandes"
+          payload: "/voir_demandes"
+        - title: "➕ Soumettre une demande"
+          payload: "/soumettre_demande"
+        - title: "❓ Aide"
+          payload: "/demander_aide"
+
+  utter_soumettre_demande:
+    - text: |
+        **Pour soumettre une nouvelle demande** :
+
+        1. Rendez-vous dans le menu **"Soumettre une demande"**
+        2. Remplissez le formulaire avec :
+           • **Titre** de votre demande
+           • **Type** de demande
+           • **Description** détaillée
+           • **Fichier joint** (optionnel)
+        3. Cliquez sur **"Soumettre"**
+
+        Votre demande recevra automatiquement une référence unique (ex: REF-12345).
+      buttons:
+        - title: "📋 Voir mes demandes"
+          payload: "/voir_demandes"
+        - title: "📂 Types de demandes"
+          payload: "/types_demandes"
+        - title: "⏱ Délais de traitement"
+          payload: "/delais_traitement"
+        - title: "❓ Aide"
+          payload: "/demander_aide"
+
+  utter_types_demandes:
+    - text: |
+        **Types de demandes disponibles** :
+
+        • **Attestation de travail** — Certificat de votre emploi
+        • **Attestation de salaire** — Justificatif de revenus
+        • **Demande de congé** — Congé annuel, maladie, etc.
+        • **Ordre de mission** — Déplacement professionnel
+        • **Autre** — Toute autre demande administrative
+
+        Choisissez le type approprié lors de la soumission.
+      buttons:
+        - title: "➕ Soumettre une demande"
+          payload: "/soumettre_demande"
+        - title: "📋 Voir mes demandes"
+          payload: "/voir_demandes"
+        - title: "⏱ Délais de traitement"
+          payload: "/delais_traitement"
+        - title: "❓ Aide"
+          payload: "/demander_aide"
+
+  utter_delais_traitement:
+    - text: |
+        **Délais de traitement estimés** :
+
+        | Type de demande | Délai estimé |
+        |---|---|
+        | Attestation de travail | 2-3 jours ouvrables |
+        | Attestation de salaire | 3-5 jours ouvrables |
+        | Demande de congé | 1-2 jours ouvrables |
+        | Ordre de mission | 3-5 jours ouvrables |
+        | Autre | Variable |
+
+        Ces délais sont indicatifs et peuvent varier selon la charge de travail.
+      buttons:
+        - title: "📋 Voir mes demandes"
+          payload: "/voir_demandes"
+        - title: "➕ Soumettre une demande"
+          payload: "/soumettre_demande"
+        - title: "📞 Contact"
+          payload: "/contact"
+        - title: "❓ Aide"
+          payload: "/demander_aide"
+
+  utter_contact:
+    - text: |
+        **Contacter l'administration** :
+
+        • **Email** : admin@gestion-demandes.ma
+        • **Téléphone** : +212 5XX-XXXXXX
+        • **Adresse** : Bureau des affaires administratives
+        • **Horaires** : Lundi - Vendredi, 08h00 - 17h00
+
+        Vous pouvez aussi utiliser la messagerie interne pour contacter directement un administrateur.
+      buttons:
+        - title: "📋 Voir mes demandes"
+          payload: "/voir_demandes"
+        - title: "➕ Soumettre une demande"
+          payload: "/soumettre_demande"
+        - title: "❓ Aide"
+          payload: "/demander_aide"
+
+  utter_aide:
+    - text: |
+        **Comment puis-je vous aider ?**
+
+        Voici ce que je peux faire pour vous :
+
+        • **Voir mes demandes** — Consulter le statut de vos demandes
+        • **Soumettre une demande** — Guide pour créer une nouvelle demande
+        • **Chercher par référence** — Tapez ex: REF-12345
+        • **Types de demandes** — Les catégories disponibles
+        • **Délais de traitement** — Temps estimé par type
+        • **Contact** — Joindre l'administration
+        • **FAQ** — Questions fréquentes sur les procédures
+
+        Vous pouvez aussi taper directement une référence (ex: REF-12345).
+      buttons:
+        - title: "📋 Voir mes demandes"
+          payload: "/voir_demandes"
+        - title: "➕ Soumettre une demande"
+          payload: "/soumettre_demande"
+        - title: "📂 Types de demandes"
+          payload: "/types_demandes"
+        - title: "⏱ Délais de traitement"
+          payload: "/delais_traitement"
+
+  utter_faq_attestation_travail:
+    - text: |
+        **Attestation de travail** :
+
+        📄 C'est un document officiel qui certifie que vous êtes employé dans votre établissement.
+
+        **Procédure** :
+        1. Soumettez une demande de type "Attestation de travail"
+        2. Pas de document supplémentaire nécessaire
+        3. Délai : 2-3 jours ouvrables
+
+        L'attestation sera disponible en téléchargement une fois validée.
+      buttons:
+        - title: "➕ Soumettre une demande"
+          payload: "/soumettre_demande"
+        - title: "❓ Aide"
+          payload: "/demander_aide"
+
+  utter_faq_attestation_salaire:
+    - text: |
+        **Attestation de salaire** :
+
+        💰 C'est un justificatif officiel de vos revenus.
+
+        **Procédure** :
+        1. Soumettez une demande de type "Attestation de salaire"
+        2. Précisez dans la description la période souhaitée
+        3. Délai : 3-5 jours ouvrables
+
+        Utile pour les démarches bancaires, de location, etc.
+      buttons:
+        - title: "➕ Soumettre une demande"
+          payload: "/soumettre_demande"
+        - title: "❓ Aide"
+          payload: "/demander_aide"
+
+  utter_faq_conge:
+    - text: |
+        **Demande de congé** :
+
+        🗓 Types de congés disponibles :
+        • Congé annuel
+        • Congé maladie (avec justificatif médical)
+        • Congé sans solde
+        • Congé exceptionnel (mariage, naissance, décès)
+
+        **Procédure** :
+        1. Soumettez une demande de type "Demande de congé"
+        2. Précisez les dates et le type de congé
+        3. Joignez un justificatif si nécessaire
+        4. Délai : 1-2 jours ouvrables
+      buttons:
+        - title: "➕ Soumettre une demande"
+          payload: "/soumettre_demande"
+        - title: "❓ Aide"
+          payload: "/demander_aide"
+
+  utter_faq_ordre_mission:
+    - text: |
+        **Ordre de mission** :
+
+        ✈️ Document nécessaire pour tout déplacement professionnel.
+
+        **Procédure** :
+        1. Soumettez une demande de type "Ordre de mission"
+        2. Précisez : destination, dates, motif du déplacement
+        3. Joignez le programme/invitation si disponible
+        4. Délai : 3-5 jours ouvrables
+      buttons:
+        - title: "➕ Soumettre une demande"
+          payload: "/soumettre_demande"
+        - title: "❓ Aide"
+          payload: "/demander_aide"
+
+  utter_faq_probleme_technique:
+    - text: |
+        **En cas de problème technique** :
+
+        🔧 Essayez ces étapes :
+        1. Rafraîchissez la page (F5)
+        2. Videz le cache de votre navigateur
+        3. Essayez avec un autre navigateur (Chrome, Firefox)
+        4. Vérifiez votre connexion internet
+
+        Si le problème persiste, contactez l'administration :
+        📧 admin@gestion-demandes.ma
+      buttons:
+        - title: "📞 Contact"
+          payload: "/contact"
+        - title: "❓ Aide"
+          payload: "/demander_aide"
+
+  utter_default:
+    - text: |
+        Je n'ai pas bien compris votre question. 🤔
+
+        Essayez l'une de ces options, ou tapez une référence de demande (ex: REF-12345) :
+      buttons:
+        - title: "📋 Voir mes demandes"
+          payload: "/voir_demandes"
+        - title: "➕ Soumettre une demande"
+          payload: "/soumettre_demande"
+        - title: "📂 Types de demandes"
+          payload: "/types_demandes"
+        - title: "⏱ Délais de traitement"
+          payload: "/delais_traitement"
+        - title: "📞 Contact"
+          payload: "/contact"
+        - title: "❓ Aide"
+          payload: "/demander_aide"
+
+  utter_demander_reference:
+    - text: |
+        Veuillez me donner la référence de votre demande (ex: REF-12345).
+
+  utter_autre_question:
+    - text: |
+        Avez-vous une autre question ?
+      buttons:
+        - title: "Oui"
+          payload: "/affirmer"
+        - title: "Non, merci"
+          payload: "/nier"
+
+# ========================================
+# Actions (actions custom qui appellent l'API Spring Boot)
+# ========================================
+actions:
+  - action_voir_demandes
+  - action_chercher_reference
+
+# ========================================
+# Session config
+# ========================================
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

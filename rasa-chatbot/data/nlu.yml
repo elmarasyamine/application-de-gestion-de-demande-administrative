@@ -1,0 +1,948 @@
+﻿version: "3.1"
+
+nlu:
+
+# ================================================================
+# SALUTATIONS
+# ================================================================
+- intent: saluer
+  examples: |
+    - bonjour
+    - salut
+    - hello
+    - hi
+    - bonsoir
+    - hey
+    - salam
+    - salam alaykoum
+    - bonsoir a tous
+    - salut tout le monde
+    - bonjour a vous
+    - coucou
+    - yo
+    - bien le bonjour
+    - bjr
+    - slt
+    - bonjour monsieur
+    - bonjour madame
+    - wesh
+    - bsr
+    - cc
+    - allo
+    - bonjour je suis nouveau
+    - salut je suis la
+    - bonjour j'ai besoin de votre aide
+    - bonjour est-ce que vous etes disponible
+    - salut comment ca va
+    - bonjour comment allez-vous
+    - coucou c'est moi
+    - hello everybody
+
+# ================================================================
+# AU REVOIR
+# ================================================================
+- intent: au_revoir
+  examples: |
+    - au revoir
+    - bye
+    - a bientot
+    - ciao
+    - bbye
+    - a la prochaine
+    - bonne journee
+    - bonne soiree
+    - salut a plus
+    - a plus
+    - tchao
+    - adieu
+    - je m'en vais
+    - je pars
+    - c'est tout pour moi
+    - j'ai termine
+    - c'est bon merci au revoir
+    - bonne continuation
+    - au revoir et merci
+    - je n'ai plus de questions
+    - bye bye
+    - ok c'est tout
+    - je reviens plus tard
+    - a demain
+    - bonne nuit
+
+# ================================================================
+# REMERCIEMENTS
+# ================================================================
+- intent: remercier
+  examples: |
+    - merci
+    - merci beaucoup
+    - thanks
+    - shukran
+    - choukran
+    - je vous remercie
+    - c'est gentil merci
+    - merci bien
+    - un grand merci
+    - merci infiniment
+    - super merci
+    - trop gentil merci
+    - merci pour votre aide
+    - merci c'est parfait
+    - merci ca m'aide beaucoup
+    - je te remercie
+    - c'est tres aimable
+    - parfait merci
+    - excellent merci
+    - merci bcp
+    - thx
+    - merci de votre reponse
+    - merci pour l'information
+    - c'est note merci
+    - ok merci pour tout
+
+# ================================================================
+# VOIR SES DEMANDES
+# ================================================================
+- intent: voir_demandes
+  examples: |
+    - je veux voir mes demandes
+    - mes demandes
+    - liste de mes dossiers
+    - voir mes demandes
+    - consulter mes demandes
+    - afficher mes demandes
+    - quel est le statut de mes demandes
+    - ou en sont mes demandes
+    - je veux consulter mes dossiers
+    - montre moi mes demandes
+    - est-ce que j'ai des demandes en cours
+    - quelles sont mes demandes
+    - l'etat de mes demandes
+    - suivi de mes demandes
+    - statut de mes demandes
+    - mes dossiers en cours
+    - j'aimerais voir mes demandes
+    - affiche mes dossiers
+    - je veux savoir l'etat de mes demandes
+    - consulter le statut de mes demandes
+    - est-ce que ma demande a ete traitee
+    - je veux suivre mes demandes
+    - combien de demandes j'ai
+    - je voudrais voir l'avancement de mes dossiers
+    - affiche la liste de mes demandes
+    - y a-t-il une mise a jour sur mes demandes
+    - verifier mes demandes
+    - mes demandes en attente
+    - mes demandes validees
+    - mes demandes rejetees
+    - ou en est mon dossier
+
+# ================================================================
+# CHERCHER PAR REFERENCE
+# ================================================================
+- intent: chercher_reference
+  examples: |
+    - [REF-12345](reference)
+    - [ref-12345](reference)
+    - [REF-999](reference)
+    - [REF-100](reference)
+    - je cherche la demande [REF-45678](reference)
+    - quel est le statut de [REF-123](reference)
+    - montre moi [REF-99999](reference)
+    - details de la demande [ref-555](reference)
+    - chercher [REF-100](reference)
+    - ou en est la demande [REF-200](reference)
+    - suivi de [REF-300](reference)
+    - je cherche [REF-777](reference)
+    - ma demande numero [REF-444](reference)
+    - donne moi les details de [REF-888](reference)
+    - je veux voir [REF-111](reference)
+    - c'est quoi le statut de [REF-222](reference)
+    - demande reference [REF-333](reference)
+    - verifier [REF-666](reference)
+    - info sur [REF-1000](reference)
+    - statut [REF-42](reference)
+    - avancement [REF-2025](reference)
+    - consulter [REF-3000](reference)
+    - [REF-50](reference) c'est ou
+    - la demande [REF-75](reference) svp
+
+# ================================================================
+# SOUMETTRE UNE DEMANDE
+# ================================================================
+- intent: soumettre_demande
+  examples: |
+    - je veux soumettre une demande
+    - soumettre une demande
+    - nouvelle demande
+    - creer une demande
+    - comment soumettre une demande
+    - deposer une demande
+    - envoyer une demande
+    - je voudrais creer un dossier
+    - comment faire une nouvelle demande
+    - je veux deposer un dossier
+    - comment envoyer une demande
+    - creer un nouveau dossier
+    - je veux faire une demande
+    - comment deposer ma demande
+    - je souhaite soumettre un dossier
+    - faire une nouvelle demande
+    - ajouter une demande
+    - je veux ajouter un nouveau dossier
+    - comment je peux faire une demande
+    - j'aimerais deposer une demande
+    - je veux envoyer une nouvelle demande
+    - comment creer une demande en ligne
+    - est-ce que je peux faire une demande
+    - initier une demande
+    - commencer une nouvelle demande
+    - ouvrir un dossier
+    - lancer une demande
+    - demarrer une nouvelle demande
+    - je suis la pour soumettre une demande
+
+# ================================================================
+# TYPES DE DEMANDES
+# ================================================================
+- intent: types_demandes
+  examples: |
+    - quels sont les types de demandes
+    - types de demandes
+    - categories de demandes
+    - les types de demandes disponibles
+    - quelles demandes puis-je faire
+    - genre de demandes
+    - quels types de dossiers
+    - les categories disponibles
+    - c'est quoi les types de demandes
+    - quelles sont les categories
+    - liste des types de demandes
+    - qu'est-ce que je peux demander
+    - les differents types de demandes
+    - donne moi les categories
+    - affiche les types
+    - quels services sont disponibles
+    - quels documents puis-je demander
+    - les options de demande
+    - quel genre de dossier je peux ouvrir
+    - demandes possibles
+    - qu'est-ce qui est disponible
+
+# ================================================================
+# DELAIS DE TRAITEMENT
+# ================================================================
+- intent: delais_traitement
+  examples: |
+    - quels sont les delais
+    - combien de temps pour traiter
+    - duree de traitement
+    - ca prend combien de temps
+    - delai de traitement
+    - combien de jours
+    - quand est-ce que ma demande sera traitee
+    - temps d'attente
+    - c'est long le traitement
+    - en combien de temps ma demande est traitee
+    - quel est le delai pour une attestation
+    - temps de reponse
+    - combien de temps faut-il attendre
+    - c'est rapide ou pas
+    - quand est-ce que je recevrai une reponse
+    - ca va prendre longtemps
+    - delai pour obtenir un document
+    - le traitement prend combien de jours
+    - est-ce que c'est rapide
+    - faut-il attendre longtemps
+    - je dois attendre combien de temps
+    - vous traitez en combien de temps
+    - quand vais-je avoir une reponse
+    - ca fait combien de temps
+
+# ================================================================
+# CONTACT
+# ================================================================
+- intent: contact
+  examples: |
+    - comment contacter l'administration
+    - contact
+    - numero de telephone
+    - email de l'administration
+    - comment joindre un administrateur
+    - adresse de l'administration
+    - je veux contacter quelqu'un
+    - coordonnees
+    - comment envoyer un message a l'admin
+    - telephone de l'administration
+    - comment je peux contacter l'admin
+    - donnez moi le mail de l'administration
+    - est-ce qu'il y a un numero de telephone
+    - je veux parler a un responsable
+    - adresse mail de contact
+    - comment avoir de l'aide directe
+    - joindre le service
+    - contacter le responsable
+    - comment faire pour appeler
+    - est-ce que je peux envoyer un email
+    - moyens de contact
+    - informations de contact
+    - comment signaler un probleme a l'admin
+
+# ================================================================
+# AIDE GENERALE
+# ================================================================
+- intent: demander_aide
+  examples: |
+    - aide
+    - j'ai besoin d'aide
+    - help
+    - comment ca marche
+    - quelles sont les options
+    - que peux-tu faire
+    - qu'est-ce que tu sais faire
+    - aide moi
+    - je ne comprends pas
+    - comment utiliser la plateforme
+    - explication
+    - guide moi
+    - comment ca fonctionne
+    - je suis perdu
+    - je ne sais pas quoi faire
+    - montrer les options
+    - affiche le menu
+    - menu principal
+    - donne moi les options disponibles
+    - qu'est-ce que je peux faire ici
+    - comment naviguer
+    - je suis nouveau ici
+    - j'ai besoin d'assistance
+    - aidez-moi s'il vous plait
+    - guidez moi dans la plateforme
+    - comment commencer
+    - tu peux m'aider
+    - explique moi la plateforme
+
+# ================================================================
+# FAQ : ATTESTATION DE TRAVAIL
+# ================================================================
+- intent: faq_attestation_travail
+  examples: |
+    - c'est quoi une attestation de travail
+    - comment obtenir une attestation de travail
+    - je veux une attestation de travail
+    - attestation de travail
+    - documents pour attestation de travail
+    - procedure pour attestation de travail
+    - comment demander une attestation de travail
+    - je cherche une attestation de travail
+    - j'ai besoin d'une attestation de travail
+    - attestation d'emploi
+    - certificat de travail
+    - comment faire pour avoir mon attestation
+    - demander attestation de travail
+    - je voudrais un certificat de travail
+    - quelle est la procedure pour attestation
+    - est-ce que l'attestation est gratuite
+    - quels papiers pour attestation
+    - attestation pour employeur
+    - comment avoir mon certificat
+
+# ================================================================
+# FAQ : ATTESTATION DE SALAIRE
+# ================================================================
+- intent: faq_attestation_salaire
+  examples: |
+    - c'est quoi une attestation de salaire
+    - comment obtenir une attestation de salaire
+    - je veux une attestation de salaire
+    - attestation de salaire
+    - documents pour attestation de salaire
+    - procedure pour attestation de salaire
+    - j'ai besoin d'une attestation de salaire
+    - comment demander une attestation de salaire
+    - attestation de revenus
+    - justificatif de salaire
+    - fiche de paie officielle
+    - je veux un justificatif de salaire
+    - bulletin de salaire
+    - comment obtenir un justificatif de revenus
+    - attestation salaire pour banque
+    - je veux mon attestation de salaire pour le credit
+    - j'ai besoin d'un document de salaire
+    - comment prouver mon salaire
+    - document de revenus
+
+# ================================================================
+# FAQ : DEMANDE DE CONGE
+# ================================================================
+- intent: faq_conge
+  examples: |
+    - comment demander un conge
+    - demande de conge
+    - je veux un conge
+    - procedure pour conge
+    - comment avoir un conge
+    - conge annuel
+    - conge maladie
+    - je voudrais prendre des vacances
+    - comment poser un conge
+    - conge sans solde
+    - conge exceptionnel
+    - conge de maternite
+    - conge de paternite
+    - comment faire une demande de conge
+    - est-ce que je peux prendre un conge
+    - j'ai besoin de conges
+    - demander des jours de conge
+    - combien de jours de conge j'ai
+    - quels types de conges existent
+    - conge mariage
+    - conge deces
+    - conge naissance
+    - vacances comment faire
+    - procedure conge annuel
+    - je veux poser mes vacances
+
+# ================================================================
+# FAQ : ORDRE DE MISSION
+# ================================================================
+- intent: faq_ordre_mission
+  examples: |
+    - c'est quoi un ordre de mission
+    - comment obtenir un ordre de mission
+    - ordre de mission
+    - deplacement professionnel
+    - je veux un ordre de mission
+    - comment demander un ordre de mission
+    - j'ai un deplacement professionnel
+    - mission professionnelle
+    - voyage de travail
+    - je dois me deplacer pour le travail
+    - comment faire un ordre de mission
+    - procedure ordre de mission
+    - documents pour ordre de mission
+    - frais de deplacement
+    - est-ce que mes frais seront rembourses
+    - remboursement mission
+    - note de frais
+    - indemnites de deplacement
+    - j'ai besoin d'un ordre de mission
+
+# ================================================================
+# FAQ : PROBLEME TECHNIQUE
+# ================================================================
+- intent: faq_probleme_technique
+  examples: |
+    - j'ai un probleme
+    - ca ne marche pas
+    - erreur sur la plateforme
+    - bug
+    - la page ne charge pas
+    - probleme technique
+    - le site ne fonctionne pas
+    - impossible de soumettre
+    - erreur lors de la soumission
+    - j'ai un bug
+    - le formulaire ne marche pas
+    - erreur 404
+    - erreur 500
+    - page blanche
+    - le bouton ne fonctionne pas
+    - impossible de telecharger
+    - la page est lente
+    - le site est en panne
+    - erreur de chargement
+    - rien ne s'affiche
+    - j'ai une erreur
+    - le site plante
+    - probleme avec le fichier joint
+    - le telechargement ne fonctionne pas
+
+# ================================================================
+# FAQ : INSCRIPTION
+# ================================================================
+- intent: faq_inscription
+  examples: |
+    - comment creer un compte
+    - comment s'inscrire
+    - je veux m'inscrire
+    - procedure d'inscription
+    - creer un compte
+    - inscription sur la plateforme
+    - comment ouvrir un compte
+    - je suis nouveau comment faire
+    - comment avoir un compte
+    - est-ce que l'inscription est gratuite
+    - je n'ai pas de compte
+    - faire un nouveau compte
+    - s'enregistrer
+    - comment je peux m'enregistrer
+    - je veux rejoindre la plateforme
+    - comment creer mon espace personnel
+    - j'aimerais creer un compte utilisateur
+    - creation de compte
+    - comment acceder a la plateforme
+    - nouveau utilisateur
+    - je veux un compte
+
+# ================================================================
+# FAQ : CONNEXION
+# ================================================================
+- intent: faq_connexion
+  examples: |
+    - comment se connecter
+    - je n'arrive pas a me connecter
+    - probleme de connexion
+    - login
+    - comment acceder a mon compte
+    - se connecter a la plateforme
+    - je ne peux pas acceder a mon compte
+    - mon compte est bloque
+    - connexion impossible
+    - page de connexion
+    - comment me reconnecter
+    - je suis deconnecte
+    - probleme d'acces
+    - je ne retrouve plus mon espace
+    - erreur de connexion
+    - echec de connexion
+    - je ne peux pas entrer
+    - acceder a mon espace
+    - mot de passe incorrect
+    - l'acces est refuse
+
+# ================================================================
+# FAQ : MOT DE PASSE
+# ================================================================
+- intent: faq_mot_de_passe
+  examples: |
+    - j'ai oublie mon mot de passe
+    - mot de passe oublie
+    - comment changer mon mot de passe
+    - reinitialiser le mot de passe
+    - je ne me souviens plus de mon mot de passe
+    - comment recuperer mon mot de passe
+    - modifier mon mot de passe
+    - nouveau mot de passe
+    - probleme de mot de passe
+    - je veux changer de mot de passe
+    - mot de passe perdu
+    - comment creer un nouveau mot de passe
+    - reset password
+    - recuperation de compte
+    - je ne peux plus me connecter mot de passe oublie
+    - comment faire si j'ai perdu mon mot de passe
+
+# ================================================================
+# FAQ : MODIFIER UNE DEMANDE
+# ================================================================
+- intent: faq_modifier_demande
+  examples: |
+    - comment modifier ma demande
+    - je veux modifier ma demande
+    - est-ce que je peux changer ma demande
+    - modifier un dossier
+    - correction de ma demande
+    - j'ai fait une erreur dans ma demande
+    - changer le type de ma demande
+    - modifier la description
+    - je veux corriger une information
+    - est-il possible de modifier une demande soumise
+    - comment mettre a jour ma demande
+    - editer ma demande
+    - je me suis trompe dans ma demande
+    - rectifier ma demande
+    - peut-on modifier apres soumission
+    - je veux ajouter des informations a ma demande
+    - comment completer ma demande
+
+# ================================================================
+# FAQ : ANNULER UNE DEMANDE
+# ================================================================
+- intent: faq_annuler_demande
+  examples: |
+    - comment annuler ma demande
+    - je veux annuler ma demande
+    - annuler un dossier
+    - supprimer ma demande
+    - retirer ma demande
+    - est-ce que je peux annuler
+    - comment supprimer ma demande
+    - je ne veux plus de cette demande
+    - annulation de demande
+    - comment retirer mon dossier
+    - je souhaite annuler ma demande
+    - est-il possible d'annuler une demande
+    - comment effacer ma demande
+    - annuler la soumission
+    - je voudrais retirer ma demande
+
+# ================================================================
+# FAQ : TELECHARGER UN DOCUMENT
+# ================================================================
+- intent: faq_telecharger_document
+  examples: |
+    - comment telecharger mon document
+    - telecharger mon attestation
+    - ou trouver mon document
+    - recuperer mon fichier
+    - telechargement de document
+    - comment obtenir mon document valide
+    - ou est mon attestation
+    - je veux telecharger mon attestation de travail
+    - comment recuperer ma demande validee
+    - le document est disponible ou
+    - download document
+    - comment avoir le pdf
+    - je cherche mon document
+    - recuperer mon attestation
+    - comment imprimer mon document
+    - mon document est pret ou le trouver
+
+# ================================================================
+# FAQ : STATUTS DE DEMANDE
+# ================================================================
+- intent: faq_statut_demande
+  examples: |
+    - c'est quoi le statut soumise
+    - que signifie en traitement
+    - signification des statuts
+    - qu'est-ce que validee veut dire
+    - c'est quoi rejetee
+    - expliquer les statuts
+    - les differents statuts d'une demande
+    - statut de demande signification
+    - ma demande est soumise c'est quoi
+    - que veut dire le statut
+    - comment comprendre le statut de ma demande
+    - explication des etats d'une demande
+    - soumise ca veut dire quoi
+    - c'est quoi une demande en traitement
+    - quelle difference entre validee et en traitement
+    - ma demande est rejetee pourquoi
+    - que signifie soumise
+    - que signifie validee
+
+# ================================================================
+# FAQ : FICHIER JOINT
+# ================================================================
+- intent: faq_fichier_joint
+  examples: |
+    - comment joindre un fichier
+    - piece jointe
+    - ajouter un fichier a ma demande
+    - quel format de fichier
+    - quelle taille de fichier
+    - comment uploader un document
+    - est-ce que le fichier est obligatoire
+    - formats acceptes
+    - je ne peux pas joindre un fichier
+    - comment envoyer un document
+    - joindre un justificatif
+    - est-ce qu'on peut joindre un pdf
+    - taille maximale du fichier
+    - quel type de fichier je peux envoyer
+    - comment attacher un document
+    - fichier trop lourd
+
+# ================================================================
+# FAQ : MESSAGERIE
+# ================================================================
+- intent: faq_messagerie
+  examples: |
+    - comment utiliser la messagerie
+    - messagerie interne
+    - envoyer un message a l'administrateur
+    - comment communiquer avec l'admin
+    - est-ce qu'il y a une messagerie
+    - je veux envoyer un message
+    - comment ecrire a l'admin
+    - chat avec l'administration
+    - discussion avec l'admin
+    - comment contacter l'admin par message
+    - envoyer un message interne
+    - tchater avec le responsable
+    - la messagerie fonctionne comment
+    - ou se trouve la messagerie
+
+# ================================================================
+# FAQ : PLATEFORME
+# ================================================================
+- intent: faq_plateforme
+  examples: |
+    - c'est quoi cette plateforme
+    - a quoi sert ce site
+    - quel est le but de la plateforme
+    - explication de la plateforme
+    - c'est quoi gestion des demandes
+    - que fait cette application
+    - a quoi ca sert
+    - c'est un site pour quoi faire
+    - pourquoi cette application existe
+    - presentation de la plateforme
+    - quel est l'objectif de ce site
+    - c'est quoi ce systeme
+    - description du service
+    - comment fonctionne la plateforme
+    - qu'est-ce qu'on peut faire sur ce site
+    - c'est quoi l'application gestion de demande
+
+# ================================================================
+# FAQ : HORAIRES
+# ================================================================
+- intent: faq_horaires
+  examples: |
+    - quels sont les horaires
+    - horaires d'ouverture
+    - a quelle heure ouvrez-vous
+    - heures de travail
+    - quand est-ce que l'administration est ouverte
+    - jours d'ouverture
+    - est-ce que vous travaillez le samedi
+    - horaires du bureau
+    - a quelle heure fermez-vous
+    - quand est-ce que je peux venir
+    - est-ce que le service est ouvert aujourd'hui
+    - heures d'ouverture du bureau
+    - le bureau ouvre a quelle heure
+    - vous etes ouverts quand
+    - les horaires de l'administration
+
+# ================================================================
+# FAQ : SECURITE
+# ================================================================
+- intent: faq_securite
+  examples: |
+    - mes donnees sont securisees
+    - est-ce que mes informations sont protegees
+    - securite des donnees
+    - confidentialite
+    - protection des donnees personnelles
+    - est-ce que c'est securise
+    - qui peut voir mes demandes
+    - mes donnees sont confidentielles
+    - politique de confidentialite
+    - donnees personnelles
+    - securite du site
+    - est-ce que le site est sur
+    - protection de la vie privee
+    - qui a acces a mes informations
+
+# ================================================================
+# PLAINTE / RECLAMATION
+# ================================================================
+- intent: plainte
+  examples: |
+    - je veux faire une reclamation
+    - reclamation
+    - plainte
+    - je ne suis pas satisfait
+    - je veux me plaindre
+    - service mediocre
+    - traitement trop lent
+    - ma demande prend trop de temps
+    - ca fait longtemps que j'attends
+    - c'est inacceptable
+    - je veux deposer une plainte
+    - je suis mecontent
+    - le service est mauvais
+    - pourquoi c'est si long
+    - je n'ai toujours pas de reponse
+    - ca fait des semaines que j'attends
+    - je veux signaler un probleme de service
+    - mon dossier est oublie
+    - personne ne repond a ma demande
+    - je suis decu du service
+
+# ================================================================
+# HUMEUR POSITIVE
+# ================================================================
+- intent: humeur_positive
+  examples: |
+    - c'est super
+    - excellent
+    - parfait
+    - genial
+    - formidable
+    - ca marche bien
+    - je suis content
+    - je suis satisfait
+    - c'est bien
+    - bravo
+    - good
+    - nice
+    - cool
+    - top
+    - c'est clair
+    - bien explique
+    - c'est tres utile
+    - merveilleux
+    - je suis ravi
+    - c'est exactement ce que je cherchais
+
+# ================================================================
+# HUMEUR NEGATIVE
+# ================================================================
+- intent: humeur_negative
+  examples: |
+    - c'est nul
+    - ca ne m'aide pas
+    - je ne suis pas content
+    - c'est pas clair
+    - ca m'enerve
+    - tu sers a rien
+    - inutile
+    - mauvais service
+    - je comprends rien
+    - c'est complique
+    - pourquoi c'est si difficile
+    - c'est frustrant
+    - tu ne m'aides pas
+    - je perds mon temps
+    - ca ne fonctionne jamais
+    - c'est une perte de temps
+    - je suis decu
+    - nul
+    - le chatbot est nul
+    - tu comprends rien
+
+# ================================================================
+# QUI ES-TU
+# ================================================================
+- intent: qui_es_tu
+  examples: |
+    - qui es-tu
+    - c'est quoi ton nom
+    - tu es qui
+    - tu t'appelles comment
+    - quel est ton nom
+    - t'es un robot
+    - est-ce que tu es un humain
+    - je parle a qui
+    - tu es un bot
+    - quel est votre nom
+    - c'est un chatbot
+    - t'es une intelligence artificielle
+    - tu es un programme
+    - comment tu t'appelles
+    - tu es humain ou machine
+    - es-tu un vrai humain
+    - tu es une IA
+
+# ================================================================
+# DEMANDE REJETEE
+# ================================================================
+- intent: demande_rejetee
+  examples: |
+    - pourquoi ma demande a ete rejetee
+    - ma demande est refusee pourquoi
+    - raison du rejet
+    - motif de refus
+    - je ne comprends pas pourquoi c'est rejete
+    - mon dossier a ete refuse
+    - comment savoir pourquoi ma demande est rejetee
+    - est-ce que je peux contester un rejet
+    - recours apres rejet
+    - appel apres refus
+    - que faire si ma demande est rejetee
+    - comment faire appel
+    - ma demande est refusee que faire
+    - est-ce que je peux refaire une demande apres un rejet
+    - je conteste le rejet de ma demande
+
+# ================================================================
+# AFFIRMER
+# ================================================================
+- intent: affirmer
+  examples: |
+    - oui
+    - oui bien sur
+    - exactement
+    - d'accord
+    - ok
+    - oui s'il vous plait
+    - tout a fait
+    - correct
+    - c'est ca
+    - absolument
+    - bien sur
+    - affirmatif
+    - ouais
+    - oui oui
+    - certainement
+    - evidemment
+    - volontiers
+    - avec plaisir
+    - je confirme
+
+# ================================================================
+# NIER
+# ================================================================
+- intent: nier
+  examples: |
+    - non
+    - non merci
+    - pas du tout
+    - non pas vraiment
+    - pas pour le moment
+    - non c'est bon
+    - rien d'autre
+    - c'est tout
+    - nan
+    - nope
+    - non ca va
+    - pas besoin
+    - non pas maintenant
+    - non je n'ai pas de question
+    - non c'est tout ce que je voulais
+    - c'est fini
+    - j'ai fini
+    - non pas la peine
+
+# ================================================================
+# REGEX pour les references
+# ================================================================
+- regex: reference
+  examples: |
+    - REF-\d+
+    - ref-\d+
+
+# ================================================================
+# LOOKUP pour types de demandes
+# ================================================================
+- lookup: typeDemande
+  examples: |
+    - attestation de travail
+    - attestation de salaire
+    - demande de conge
+    - ordre de mission
+    - autre
+
+# ================================================================
+# SYNONYMES
+# ================================================================
+- synonym: attestation de travail
+  examples: |
+    - certificat de travail
+    - attestation emploi
+    - attestation d'emploi
+
+- synonym: attestation de salaire
+  examples: |
+    - bulletin de salaire
+    - fiche de paie
+    - justificatif de salaire
+    - justificatif de revenus
+
+- synonym: demande de conge
+  examples: |
+    - conge
+    - vacances
+    - jours de repos
+    - permission
+
+- synonym: ordre de mission
+  examples: |
+    - mission
+    - deplacement
+    - voyage professionnel

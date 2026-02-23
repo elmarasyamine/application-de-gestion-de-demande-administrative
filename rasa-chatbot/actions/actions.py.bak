@@ -1,0 +1,259 @@
+"""
+Actions custom pour le chatbot Rasa.
+Ces actions appellent l'API Spring Boot (http://localhost:8093) pour récupérer
+les données réelles des demandes depuis la base de données MySQL.
+"""
+
+import requests
+import re
+from typing import Any, Text, Dict, List
+from rasa_sdk import Action, Tracker
+from rasa_sdk.executor import CollectingDispatcher
+from rasa_sdk.events import SlotSet
+
+# URL de base de votre API Spring Boot
+SPRING_BOOT_API = "http://localhost:8093/api"
+
+
+class ActionVoirDemandes(Action):
+    """
+    Action pour récupérer toutes les demandes d'un utilisateur
+    depuis l'API Spring Boot.
+    """
+
+    def name(self) -> Text:
+        return "action_voir_demandes"
+
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict[Text, Any]]:
+
+        # Récupérer le user_id depuis les métadonnées du message
+        user_id = tracker.get_slot("user_id")
+
+        # Essayer aussi de récupérer depuis les metadata
+        if not user_id:
+            metadata = tracker.latest_message.get("metadata", {})
+            user_id = metadata.get("userId") or metadata.get("user_id")
+
+        if not user_id:
+            dispatcher.utter_message(
+                text="Vous devez être connecté pour consulter vos demandes.",
+                buttons=[{"title": "❓ Aide", "payload": "/demander_aide"}],
+            )
+            return []
+
+        try:
+            # Appel à l'API Spring Boot
+            response = requests.get(
+                f"{SPRING_BOOT_API}/demandes/mes-demandes/{user_id}",
+                timeout=10,
+            )
+
+            if response.status_code == 200:
+                demandes = response.json()
+
+                if not demandes:
+                    dispatcher.utter_message(
+                        text="Vous n'avez aucune demande pour le moment.\n\nSouhaitez-vous en soumettre une ?",
+                        buttons=[
+                            {
+                                "title": "➕ Soumettre une demande",
+                                "payload": "/soumettre_demande",
+                            },
+                            {
+                                "title": "📂 Types de demandes",
+                                "payload": "/types_demandes",
+                            },
+                            {"title": "❓ Aide", "payload": "/demander_aide"},
+                        ],
+                    )
+                    return []
+
+                # Construire le message avec les demandes
+                msg = f"**Vos demandes** ({len(demandes)}) :\n\n"
+
+                for d in demandes:
+                    ref = d.get("reference", "N/A")
+                    titre = d.get("titreDemande", "Sans titre")
+                    type_dem = d.get("typeDemande", "N/A")
+                    status = self._format_status(d.get("status", "N/A"))
+                    date = d.get("dateDepot", "")
+
+                    msg += f"• **{ref}** — {titre}\n"
+                    msg += f"   Type: {type_dem} | Statut: **{status}**"
+                    if date:
+                        msg += f" | Date: {date[:10]}"
+                    msg += "\n\n"
+
+                msg += "💡 Tapez une référence (ex: REF-12345) pour plus de détails."
+
+                dispatcher.utter_message(
+                    text=msg,
+                    buttons=[
+                        {
+                            "title": "➕ Soumettre une demande",
+                            "payload": "/soumettre_demande",
+                        },
+                        {
+                            "title": "⏱ Délais de traitement",
+                            "payload": "/delais_traitement",
+                        },
+                        {"title": "❓ Aide", "payload": "/demander_aide"},
+                    ],
+                )
+            else:
+                dispatcher.utter_message(
+                    text="Désolé, je n'ai pas pu récupérer vos demandes. Veuillez réessayer plus tard.",
+                    buttons=[{"title": "❓ Aide", "payload": "/demander_aide"}],
+                )
+
+        except requests.exceptions.ConnectionError:
+            dispatcher.utter_message(
+                text="⚠️ Le serveur est temporairement indisponible. Veuillez réessayer dans quelques instants.",
+                buttons=[{"title": "❓ Aide", "payload": "/demander_aide"}],
+            )
+        except Exception as e:
+            dispatcher.utter_message(
+                text=f"Une erreur est survenue : {str(e)}",
+                buttons=[{"title": "❓ Aide", "payload": "/demander_aide"}],
+            )
+
+        return []
+
+    def _format_status(self, status: str) -> str:
+        status_map = {
+            "SOUMISE": "Soumise",
+            "EN_TRAITEMENT": "En traitement",
+            "VALIDEE": "Validée",
+            "REJETEE": "Rejetée",
+        }
+        return status_map.get(status, status)
+
+
+class ActionChercherReference(Action):
+    """
+    Action pour chercher une demande par sa référence
+    depuis l'API Spring Boot.
+    """
+
+    def name(self) -> Text:
+        return "action_chercher_reference"
+
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict[Text, Any]]:
+
+        # Extraire la référence du message
+        message = tracker.latest_message.get("text", "")
+        reference = tracker.get_slot("reference")
+
+        # Si pas de slot, essayer d'extraire depuis le message
+        if not reference:
+            ref_match = re.search(r"REF[- ]?(\d+)", message, re.IGNORECASE)
+            if ref_match:
+                reference = f"REF-{ref_match.group(1)}"
+
+        if not reference:
+            dispatcher.utter_message(
+                text="Veuillez fournir une référence valide (ex: REF-12345).",
+                buttons=[
+                    {
+                        "title": "📋 Voir mes demandes",
+                        "payload": "/voir_demandes",
+                    },
+                    {"title": "❓ Aide", "payload": "/demander_aide"},
+                ],
+            )
+            return []
+
+        # S'assurer que la référence est au bon format
+        if not reference.upper().startswith("REF-"):
+            reference = f"REF-{reference}"
+
+        user_id = tracker.get_slot("user_id")
+        if not user_id:
+            metadata = tracker.latest_message.get("metadata", {})
+            user_id = metadata.get("userId") or metadata.get("user_id")
+
+        try:
+            # Appel à l'API Spring Boot pour chercher par référence
+            response = requests.get(
+                f"{SPRING_BOOT_API}/demandes/reference/{reference}",
+                timeout=10,
+            )
+
+            if response.status_code == 200:
+                d = response.json()
+
+                msg = f"**Détails de la demande {d.get('reference', reference)}** :\n\n"
+                msg += f"• **Titre** : {d.get('titreDemande', 'N/A')}\n"
+                msg += f"• **Type** : {d.get('typeDemande', 'N/A')}\n"
+                msg += f"• **Statut** : **{self._format_status(d.get('status', 'N/A'))}**\n"
+
+                date = d.get("dateDepot", "")
+                if date:
+                    msg += f"• **Date de dépôt** : {date[:10]}\n"
+
+                desc = d.get("description", "")
+                if desc:
+                    msg += f"• **Description** : {desc}\n"
+
+                dispatcher.utter_message(
+                    text=msg,
+                    buttons=[
+                        {
+                            "title": "📋 Voir mes demandes",
+                            "payload": "/voir_demandes",
+                        },
+                        {
+                            "title": "➕ Soumettre une demande",
+                            "payload": "/soumettre_demande",
+                        },
+                        {"title": "❓ Aide", "payload": "/demander_aide"},
+                    ],
+                )
+            elif response.status_code == 404:
+                dispatcher.utter_message(
+                    text=f"Aucune demande trouvée avec la référence **{reference}**.\n\nVérifiez la référence et réessayez. Le format est : REF-XXXXX",
+                    buttons=[
+                        {
+                            "title": "📋 Voir mes demandes",
+                            "payload": "/voir_demandes",
+                        },
+                        {"title": "❓ Aide", "payload": "/demander_aide"},
+                    ],
+                )
+            else:
+                dispatcher.utter_message(
+                    text="Désolé, une erreur est survenue lors de la recherche.",
+                    buttons=[{"title": "❓ Aide", "payload": "/demander_aide"}],
+                )
+
+        except requests.exceptions.ConnectionError:
+            dispatcher.utter_message(
+                text="⚠️ Le serveur est temporairement indisponible. Veuillez réessayer.",
+                buttons=[{"title": "❓ Aide", "payload": "/demander_aide"}],
+            )
+        except Exception as e:
+            dispatcher.utter_message(
+                text=f"Une erreur est survenue : {str(e)}",
+                buttons=[{"title": "❓ Aide", "payload": "/demander_aide"}],
+            )
+
+        return [SlotSet("reference", reference)]
+
+    def _format_status(self, status: str) -> str:
+        status_map = {
+            "SOUMISE": "Soumise",
+            "EN_TRAITEMENT": "En traitement",
+            "VALIDEE": "Validée",
+            "REJETEE": "Rejetée",
+        }
+        return status_map.get(status, status)

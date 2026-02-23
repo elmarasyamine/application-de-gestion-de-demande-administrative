@@ -1,0 +1,68 @@
+# Pipeline de configuration Rasa
+# Optimise pour le francais - Chatbot intelligent
+
+version: "3.1"
+
+language: fr
+
+pipeline:
+  # Tokenizer pour le francais
+- name: WhitespaceTokenizer
+  intent_tokenization_flag: false
+  intent_split_symbol: "_"
+
+  # Regex pour detecter les references (REF-12345)
+- name: RegexFeaturizer
+  case_sensitive: false
+
+  # Extraction des features lexicales et syntaxiques
+- name: LexicalSyntacticFeaturizer
+
+  # Comptage de mots (Bag of Words)
+- name: CountVectorsFeaturizer
+  min_ngram: 1
+  max_ngram: 1
+
+  # Comptage de N-grams de caracteres (capture les fautes d'orthographe)
+- name: CountVectorsFeaturizer
+  analyzer: char_wb
+  min_ngram: 1
+  max_ngram: 4
+
+  # Classificateur d'intentions (le cerveau NLU)
+- name: DIETClassifier
+  epochs: 150
+  constrain_similarities: true
+  model_confidence: softmax
+  random_seed: 42
+
+  # Mapping des synonymes d'entites
+- name: EntitySynonymMapper
+
+  # Extraction d'entites par regex (REF-XXXXX)
+- name: RegexEntityExtractor
+  case_sensitive: false
+
+  # Seuil de confiance pour le fallback
+- name: FallbackClassifier
+  threshold: 0.35
+  ambiguity_threshold: 0.1
+
+policies:
+  # Politique basee sur les regles (rules.yml) - Priorite haute
+- name: RulePolicy
+  core_fallback_threshold: 0.3
+  core_fallback_action_name: action_default_fallback
+  enable_fallback_prediction: true
+
+  # Politique de memorisation (stories.yml)
+- name: MemoizationPolicy
+  max_history: 6
+
+  # Politique basee sur le Transformer (conversations complexes)
+- name: TEDPolicy
+  max_history: 8
+  epochs: 80
+  constrain_similarities: true
+  random_seed: 42
+assistant_id: 20260221-030048-concave-skew

@@ -1,0 +1,53 @@
+services:
+  # ============================
+  # MySQL Database
+  # ============================
+  mysql:
+    image: mysql:8.0
+    container_name: gestion-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ""
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: gestion_users
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ============================
+  # Spring Boot Backend
+  # ============================
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: gestion-backend
+    ports:
+      - "8093:8093"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+    volumes:
+      - uploads_data:/app/uploads
+
+  # ============================
+  # Vue.js Frontend (Nginx)
+  # ============================
+  frontend:
+    build:
+      context: ./demo
+      dockerfile: Dockerfile
+    container_name: gestion-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+volumes:
+  mysql_data:
+  uploads_data:

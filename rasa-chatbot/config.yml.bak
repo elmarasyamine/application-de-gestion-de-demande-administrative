@@ -1,0 +1,57 @@
+# Pipeline de configuration Rasa
+# Optimisé pour le français
+
+version: "3.1"
+
+language: fr
+
+pipeline:
+  # Tokenizer pour le français
+- name: WhitespaceTokenizer
+
+  # Regex pour détecter les références (REF-12345)
+- name: RegexFeaturizer
+
+  # Extraction des features des mots
+- name: LexicalSyntacticFeaturizer
+
+  # Comptage de N-grams (caractères)
+- name: CountVectorsFeaturizer
+
+  # Comptage de N-grams (mots)
+- name: CountVectorsFeaturizer
+  analyzer: char_wb
+  min_ngram: 1
+  max_ngram: 4
+
+  # Classificateur d'intentions (le "cerveau" NLU)
+- name: DIETClassifier
+  epochs: 100
+  constrain_similarities: true
+
+  # Extraction d'entités (référence)
+- name: EntitySynonymMapper
+
+  # Extraction par regex (REF-XXXXX)
+- name: RegexEntityExtractor
+  case_sensitive: false
+
+  # Seuil de confiance pour le fallback
+- name: FallbackClassifier
+  threshold: 0.4
+  ambiguity_threshold: 0.1
+
+policies:
+  # Politique basée sur les règles (rules.yml)
+- name: RulePolicy
+
+  # Politique de mémorisation (stories.yml)
+- name: MemoizationPolicy
+  max_history: 5
+
+  # Politique basée sur le Transformer (pour les conversations complexes)
+- name: TEDPolicy
+  max_history: 5
+  epochs: 50
+  constrain_similarities: true
+assistant_id: 20260221-013316-small-martin

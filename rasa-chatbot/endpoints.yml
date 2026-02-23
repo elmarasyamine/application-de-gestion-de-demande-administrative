@@ -1,0 +1,5 @@
+# Endpoints pour Rasa
+# Le serveur d'actions custom (appels API vers Spring Boot)
+
+action_endpoint:
+  url: "http://localhost:5055/webhook"

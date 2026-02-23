@@ -1,0 +1,37 @@
+# ========================
+# Backend (Spring Boot / Maven)
+# ========================
+backend/target/
+backend/.mvn/
+backend/*.jar
+backend/uploads/
+
+# ========================
+# Frontend (Vue.js / Node)
+# ========================
+demo/node_modules/
+demo/dist/
+demo/.env.local
+
+# ========================
+# Rasa Chatbot
+# ========================
+rasa-chatbot/venv/
+rasa-chatbot/models/
+rasa-chatbot/.rasa/
+rasa-chatbot/actions/__pycache__/
+__pycache__/
+
+# ========================
+# IDE / OS
+# ========================
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db
+
+# ========================
+# Logs
+# ========================
+*.log

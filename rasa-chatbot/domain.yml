@@ -1,0 +1,671 @@
+version: "3.1"
+
+intents:
+  - saluer
+  - au_revoir
+  - remercier
+  - voir_demandes
+  - chercher_reference
+  - soumettre_demande
+  - types_demandes
+  - delais_traitement
+  - contact
+  - demander_aide
+  - faq_attestation_travail
+  - faq_attestation_salaire
+  - faq_conge
+  - faq_ordre_mission
+  - faq_probleme_technique
+  - faq_inscription
+  - faq_connexion
+  - faq_mot_de_passe
+  - faq_modifier_demande
+  - faq_annuler_demande
+  - faq_telecharger_document
+  - faq_statut_demande
+  - faq_fichier_joint
+  - faq_messagerie
+  - faq_plateforme
+  - faq_horaires
+  - faq_securite
+  - plainte
+  - humeur_positive
+  - humeur_negative
+  - qui_es_tu
+  - demande_rejetee
+  - affirmer
+  - nier
+
+entities:
+  - reference
+
+slots:
+  reference:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: reference
+  user_id:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: custom
+
+responses:
+  utter_saluer:
+    - text: |
+        Bonjour ! Je suis l'assistant virtuel de la plateforme de gestion des demandes administratives.
+
+        Comment puis-je vous aider aujourd'hui ?
+      buttons:
+        - title: "Voir mes demandes"
+          payload: "/voir_demandes"
+        - title: "Soumettre une demande"
+          payload: "/soumettre_demande"
+        - title: "Types de demandes"
+          payload: "/types_demandes"
+        - title: "Aide"
+          payload: "/demander_aide"
+    - text: |
+        Bienvenue sur la plateforme ! Je suis votre assistant intelligent.
+
+        Que souhaitez-vous faire ?
+      buttons:
+        - title: "Voir mes demandes"
+          payload: "/voir_demandes"
+        - title: "Soumettre une demande"
+          payload: "/soumettre_demande"
+        - title: "Types de demandes"
+          payload: "/types_demandes"
+        - title: "Aide"
+          payload: "/demander_aide"
+    - text: |
+        Bonjour et bienvenue ! Je suis la pour vous accompagner dans vos demarches administratives.
+
+        Comment puis-je vous assister ?
+      buttons:
+        - title: "Mes demandes"
+          payload: "/voir_demandes"
+        - title: "Nouvelle demande"
+          payload: "/soumettre_demande"
+        - title: "FAQ"
+          payload: "/demander_aide"
+
+  utter_au_revoir:
+    - text: "Au revoir ! N'hesitez pas a revenir si vous avez besoin d'aide. Bonne continuation !"
+    - text: "A bientot ! Je reste disponible si vous avez d'autres questions."
+    - text: "Au revoir et bonne journee ! N'hesitez pas a me recontacter."
+
+  utter_remercier:
+    - text: |
+        Je vous en prie ! N'hesitez pas si vous avez d'autres questions.
+      buttons:
+        - title: "Voir mes demandes"
+          payload: "/voir_demandes"
+        - title: "Soumettre une demande"
+          payload: "/soumettre_demande"
+        - title: "Aide"
+          payload: "/demander_aide"
+    - text: |
+        Avec plaisir ! Je suis la pour vous aider.
+      buttons:
+        - title: "Autre question"
+          payload: "/demander_aide"
+        - title: "Au revoir"
+          payload: "/au_revoir"
+
+  utter_soumettre_demande:
+    - text: |
+        Pour soumettre une nouvelle demande :
+
+        1. Rendez-vous dans le menu "Soumettre une demande"
+        2. Remplissez le formulaire avec :
+           - Titre de votre demande
+           - Type de demande (attestation, conge, etc.)
+           - Description detaillee
+           - Fichier joint (optionnel)
+        3. Cliquez sur "Soumettre"
+
+        Votre demande recevra automatiquement une reference unique (ex: REF-12345) pour le suivi.
+      buttons:
+        - title: "Types de demandes"
+          payload: "/types_demandes"
+        - title: "Delais de traitement"
+          payload: "/delais_traitement"
+        - title: "Aide"
+          payload: "/demander_aide"
+
+  utter_types_demandes:
+    - text: |
+        Types de demandes disponibles :
+
+        - Attestation de travail : Certificat prouvant votre emploi
+        - Attestation de salaire : Justificatif de revenus
+        - Demande de conge : Conge annuel, maladie, exceptionnel, etc.
+        - Ordre de mission : Pour les deplacements professionnels
+        - Autre : Toute autre demande administrative
+
+        Choisissez le type qui correspond a votre besoin lors de la soumission.
+      buttons:
+        - title: "Soumettre une demande"
+          payload: "/soumettre_demande"
+        - title: "Delais de traitement"
+          payload: "/delais_traitement"
+        - title: "Aide"
+          payload: "/demander_aide"
+
+  utter_delais_traitement:
+    - text: |
+        Delais de traitement estimes :
+
+        - Attestation de travail : 2-3 jours ouvrables
+        - Attestation de salaire : 3-5 jours ouvrables
+        - Demande de conge : 1-2 jours ouvrables
+        - Ordre de mission : 3-5 jours ouvrables
+        - Autre : Variable selon la complexite
+
+        Ces delais sont indicatifs et peuvent varier selon la charge de travail de l'administration.
+      buttons:
+        - title: "Voir mes demandes"
+          payload: "/voir_demandes"
+        - title: "Soumettre une demande"
+          payload: "/soumettre_demande"
+        - title: "Contact"
+          payload: "/contact"
+
+  utter_contact:
+    - text: |
+        Contacter l'administration :
+
+        - Email : admin@gestion-demandes.ma
+        - Telephone : +212 5XX-XXXXXX
+        - Adresse : Bureau des affaires administratives
+        - Horaires : Lundi - Vendredi, 08h00 - 17h00
+
+        Vous pouvez aussi utiliser la messagerie interne pour contacter directement un administrateur.
+      buttons:
+        - title: "Messagerie interne"
+          payload: "/faq_messagerie"
+        - title: "Voir mes demandes"
+          payload: "/voir_demandes"
+        - title: "Aide"
+          payload: "/demander_aide"
+
+  utter_aide:
+    - text: |
+        Voici tout ce que je peux faire pour vous :
+
+        - Voir mes demandes : Consulter l'etat de vos dossiers
+        - Soumettre une demande : Creer une nouvelle demande
+        - Chercher par reference : Tapez ex: REF-12345
+        - Types de demandes : Les categories disponibles
+        - Delais de traitement : Temps estime par type
+        - Contact : Joindre l'administration
+        - FAQ : Questions sur les attestations, conges, etc.
+
+        Vous pouvez egalement me poser des questions en langage naturel !
+      buttons:
+        - title: "Voir mes demandes"
+          payload: "/voir_demandes"
+        - title: "Soumettre une demande"
+          payload: "/soumettre_demande"
+        - title: "Types de demandes"
+          payload: "/types_demandes"
+        - title: "Delais"
+          payload: "/delais_traitement"
+
+  utter_faq_attestation_travail:
+    - text: |
+        Attestation de travail :
+
+        C'est un document officiel qui certifie que vous etes employe dans votre etablissement.
+
+        Procedure :
+        1. Soumettez une demande de type "Attestation de travail"
+        2. Pas de document supplementaire necessaire
+        3. Delai : 2-3 jours ouvrables
+
+        L'attestation sera disponible en telechargement une fois validee par l'administration.
+      buttons:
+        - title: "Soumettre une demande"
+          payload: "/soumettre_demande"
+        - title: "Delais"
+          payload: "/delais_traitement"
+        - title: "Aide"
+          payload: "/demander_aide"
+
+  utter_faq_attestation_salaire:
+    - text: |
+        Attestation de salaire :
+
+        C'est un justificatif officiel de vos revenus. Utile pour les demarches bancaires, location, etc.
+
+        Procedure :
+        1. Soumettez une demande de type "Attestation de salaire"
+        2. Precisez dans la description la periode souhaitee
+        3. Delai : 3-5 jours ouvrables
+      buttons:
+        - title: "Soumettre une demande"
+          payload: "/soumettre_demande"
+        - title: "Delais"
+          payload: "/delais_traitement"
+        - title: "Aide"
+          payload: "/demander_aide"
+
+  utter_faq_conge:
+    - text: |
+        Demande de conge :
+
+        Types de conges disponibles :
+        - Conge annuel
+        - Conge maladie (avec justificatif medical)
+        - Conge sans solde
+        - Conge exceptionnel (mariage, naissance, deces)
+        - Conge maternite / paternite
+
+        Procedure :
+        1. Soumettez une demande de type "Demande de conge"
+        2. Precisez les dates et le type de conge dans la description
+        3. Joignez un justificatif si necessaire
+        4. Delai : 1-2 jours ouvrables
+      buttons:
+        - title: "Soumettre une demande"
+          payload: "/soumettre_demande"
+        - title: "Delais"
+          payload: "/delais_traitement"
+        - title: "Aide"
+          payload: "/demander_aide"
+
+  utter_faq_ordre_mission:
+    - text: |
+        Ordre de mission :
+
+        Document necessaire pour tout deplacement professionnel.
+
+        Procedure :
+        1. Soumettez une demande de type "Ordre de mission"
+        2. Precisez : destination, dates, motif du deplacement
+        3. Joignez le programme/invitation si disponible
+        4. Delai : 3-5 jours ouvrables
+
+        Les frais de deplacement seront traites selon la politique de l'etablissement.
+      buttons:
+        - title: "Soumettre une demande"
+          payload: "/soumettre_demande"
+        - title: "Aide"
+          payload: "/demander_aide"
+
+  utter_faq_probleme_technique:
+    - text: |
+        En cas de probleme technique, essayez ces etapes :
+
+        1. Rafraichissez la page (F5)
+        2. Videz le cache de votre navigateur
+        3. Essayez avec un autre navigateur (Chrome, Firefox, Edge)
+        4. Verifiez votre connexion internet
+
+        Si le probleme persiste, contactez l'administration par email : admin@gestion-demandes.ma
+      buttons:
+        - title: "Contact"
+          payload: "/contact"
+        - title: "Aide"
+          payload: "/demander_aide"
+
+  utter_faq_inscription:
+    - text: |
+        Comment creer un compte :
+
+        1. Rendez-vous sur la page d'accueil
+        2. Cliquez sur "S'inscrire" ou "Creer un compte"
+        3. Remplissez le formulaire avec :
+           - Nom et prenom
+           - Adresse email
+           - CNI (Carte Nationale d'Identite)
+           - Mot de passe
+        4. Cliquez sur "S'inscrire"
+
+        L'inscription est entierement gratuite. Une fois inscrit, vous pourrez soumettre vos demandes.
+      buttons:
+        - title: "Aide"
+          payload: "/demander_aide"
+        - title: "Types de demandes"
+          payload: "/types_demandes"
+
+  utter_faq_connexion:
+    - text: |
+        Pour vous connecter :
+
+        1. Rendez-vous sur la page de connexion
+        2. Entrez votre email et mot de passe
+        3. Cliquez sur "Se connecter"
+
+        Si vous avez des problemes de connexion :
+        - Verifiez votre email et mot de passe
+        - Assurez-vous que le verrouillage des majuscules est desactive
+        - Contactez l'administration si votre compte semble bloque
+      buttons:
+        - title: "Mot de passe oublie"
+          payload: "/faq_mot_de_passe"
+        - title: "Inscription"
+          payload: "/faq_inscription"
+        - title: "Contact"
+          payload: "/contact"
+
+  utter_faq_mot_de_passe:
+    - text: |
+        Probleme de mot de passe :
+
+        Pour recuperer ou modifier votre mot de passe, veuillez contacter l'administration directement :
+
+        - Email : admin@gestion-demandes.ma
+        - Telephone : +212 5XX-XXXXXX
+        - Ou via la messagerie interne si vous avez encore acces
+
+        L'administrateur pourra reinitialiser votre mot de passe en toute securite.
+      buttons:
+        - title: "Contact"
+          payload: "/contact"
+        - title: "Aide"
+          payload: "/demander_aide"
+
+  utter_faq_modifier_demande:
+    - text: |
+        Modification d'une demande :
+
+        - Si votre demande est encore au statut "Soumise", vous pouvez contacter l'administration pour demander une modification.
+        - Si elle est deja "En traitement" ou "Validee", la modification n'est plus possible.
+
+        Dans ce cas, vous pouvez :
+        1. Attendre le traitement actuel
+        2. Soumettre une nouvelle demande avec les informations correctes
+        3. Contacter l'administration via la messagerie interne
+
+        Conseil : Verifiez bien toutes les informations avant de soumettre !
+      buttons:
+        - title: "Soumettre une demande"
+          payload: "/soumettre_demande"
+        - title: "Contact"
+          payload: "/contact"
+        - title: "Mes demandes"
+          payload: "/voir_demandes"
+
+  utter_faq_annuler_demande:
+    - text: |
+        Annulation d'une demande :
+
+        L'annulation n'est pas disponible en self-service pour le moment.
+
+        Pour annuler une demande :
+        1. Contactez l'administration via la messagerie interne
+        2. Precisez la reference de la demande a annuler (ex: REF-12345)
+        3. Indiquez le motif d'annulation
+
+        L'administrateur traitera votre demande d'annulation dans les plus brefs delais.
+      buttons:
+        - title: "Contact"
+          payload: "/contact"
+        - title: "Mes demandes"
+          payload: "/voir_demandes"
+        - title: "Aide"
+          payload: "/demander_aide"
+
+  utter_faq_telecharger_document:
+    - text: |
+        Telechargement de document :
+
+        Une fois votre demande validee :
+        1. Allez dans "Mes demandes"
+        2. Trouvez la demande avec le statut "Validee"
+        3. Cliquez sur "Details" pour voir le document
+        4. Telechargez le fichier joint
+
+        Si vous ne trouvez pas votre document, verifiez que le statut est bien "Validee". En cas de probleme, contactez l'administration.
+      buttons:
+        - title: "Mes demandes"
+          payload: "/voir_demandes"
+        - title: "Contact"
+          payload: "/contact"
+        - title: "Aide"
+          payload: "/demander_aide"
+
+  utter_faq_statut_demande:
+    - text: |
+        Signification des statuts de demande :
+
+        - SOUMISE : Votre demande a ete recue et attend d'etre assignee a un administrateur
+        - EN TRAITEMENT : Un administrateur examine actuellement votre demande
+        - VALIDEE : Votre demande a ete approuvee ! Le document est disponible
+        - REJETEE : Votre demande n'a pas ete approuvee. Contactez l'admin pour connaitre le motif
+
+        Vous pouvez suivre le statut de vos demandes a tout moment dans la rubrique "Mes demandes".
+      buttons:
+        - title: "Mes demandes"
+          payload: "/voir_demandes"
+        - title: "Demande rejetee ?"
+          payload: "/demande_rejetee"
+        - title: "Aide"
+          payload: "/demander_aide"
+
+  utter_faq_fichier_joint:
+    - text: |
+        Fichiers joints :
+
+        - Le fichier joint est optionnel lors de la soumission
+        - Formats acceptes : PDF, JPG, PNG, JPEG, JFIF
+        - Taille maximale recommandee : 5 Mo
+        - Un seul fichier par demande
+
+        Le fichier peut etre un justificatif, un certificat medical, une invitation, etc.
+      buttons:
+        - title: "Soumettre une demande"
+          payload: "/soumettre_demande"
+        - title: "Aide"
+          payload: "/demander_aide"
+
+  utter_faq_messagerie:
+    - text: |
+        Messagerie interne :
+
+        La plateforme dispose d'une messagerie integree pour communiquer directement avec les administrateurs.
+
+        Pour y acceder :
+        1. Connectez-vous a votre compte
+        2. Allez dans la section "Messagerie" du menu
+        3. Selectionnez un administrateur
+        4. Redigez et envoyez votre message
+
+        C'est le moyen le plus rapide pour obtenir une reponse personnalisee.
+      buttons:
+        - title: "Contact"
+          payload: "/contact"
+        - title: "Aide"
+          payload: "/demander_aide"
+
+  utter_faq_plateforme:
+    - text: |
+        A propos de la plateforme :
+
+        Cette plateforme de "Gestion des Demandes" vous permet de :
+
+        - Soumettre des demandes administratives en ligne
+        - Suivre l'avancement de vos dossiers en temps reel
+        - Telecharger vos documents valides
+        - Communiquer avec l'administration via la messagerie interne
+        - Consulter un assistant intelligent (moi !) pour toute question
+
+        Fini les files d'attente ! Tout se fait en ligne, 24h/24.
+      buttons:
+        - title: "Inscription"
+          payload: "/faq_inscription"
+        - title: "Types de demandes"
+          payload: "/types_demandes"
+        - title: "Aide"
+          payload: "/demander_aide"
+
+  utter_faq_horaires:
+    - text: |
+        Horaires de l'administration :
+
+        - Lundi a Vendredi : 08h00 - 17h00
+        - Samedi : Ferme
+        - Dimanche : Ferme
+        - Jours feries : Ferme
+
+        La plateforme en ligne est disponible 24h/24, 7j/7. Vous pouvez soumettre vos demandes a tout moment !
+
+        Le traitement est effectue pendant les heures de bureau.
+      buttons:
+        - title: "Contact"
+          payload: "/contact"
+        - title: "Aide"
+          payload: "/demander_aide"
+
+  utter_faq_securite:
+    - text: |
+        Securite et confidentialite :
+
+        Vos donnees sont protegees :
+        - Seuls les administrateurs autorises peuvent voir vos demandes
+        - Vos informations personnelles sont stockees de maniere securisee
+        - Chaque utilisateur a acces uniquement a ses propres demandes
+        - La communication entre votre navigateur et le serveur est securisee
+
+        Si vous avez des preoccupations concernant vos donnees, contactez l'administration.
+      buttons:
+        - title: "Contact"
+          payload: "/contact"
+        - title: "Aide"
+          payload: "/demander_aide"
+
+  utter_plainte:
+    - text: |
+        Je comprends votre frustration et je suis desole pour les desagrements.
+
+        Pour faire une reclamation officielle :
+        1. Utilisez la messagerie interne pour contacter un administrateur
+        2. Precisez votre reference de demande et le probleme rencontre
+        3. L'administration s'engage a vous repondre sous 48h
+
+        Vous pouvez egalement envoyer un email a : admin@gestion-demandes.ma
+      buttons:
+        - title: "Messagerie"
+          payload: "/faq_messagerie"
+        - title: "Contact"
+          payload: "/contact"
+        - title: "Mes demandes"
+          payload: "/voir_demandes"
+
+  utter_humeur_positive:
+    - text: "Merci beaucoup ! Ca me fait plaisir de pouvoir vous aider. N'hesitez pas si vous avez d'autres questions !"
+      buttons:
+        - title: "Autre question"
+          payload: "/demander_aide"
+        - title: "Au revoir"
+          payload: "/au_revoir"
+    - text: "Super ! Je suis content que ca vous soit utile. Je reste a votre disposition !"
+      buttons:
+        - title: "Autre question"
+          payload: "/demander_aide"
+        - title: "Au revoir"
+          payload: "/au_revoir"
+
+  utter_humeur_negative:
+    - text: |
+        Je suis desole que vous ne soyez pas satisfait. Je fais de mon mieux pour vous aider.
+
+        Pouvez-vous me preciser votre question ? Je vais essayer de mieux vous repondre.
+
+        Si vous preferez, vous pouvez contacter directement un administrateur humain via la messagerie interne.
+      buttons:
+        - title: "Messagerie interne"
+          payload: "/faq_messagerie"
+        - title: "Contact"
+          payload: "/contact"
+        - title: "Aide"
+          payload: "/demander_aide"
+
+  utter_qui_es_tu:
+    - text: |
+        Je suis l'assistant virtuel intelligent de la plateforme de gestion des demandes administratives.
+
+        Je suis un chatbot propulse par l'intelligence artificielle (Rasa NLU). Je peux vous aider a :
+        - Soumettre et suivre vos demandes
+        - Repondre a vos questions sur les procedures
+        - Vous orienter vers les bons services
+
+        Je ne suis pas un humain, mais je fais de mon mieux pour vous assister !
+      buttons:
+        - title: "Que peux-tu faire ?"
+          payload: "/demander_aide"
+        - title: "Types de demandes"
+          payload: "/types_demandes"
+
+  utter_demande_rejetee:
+    - text: |
+        Si votre demande a ete rejetee :
+
+        1. Contactez l'administration via la messagerie interne pour connaitre le motif du rejet
+        2. Precisez votre reference de demande (ex: REF-12345)
+        3. Selon le motif, vous pourrez :
+           - Corriger les informations et soumettre une nouvelle demande
+           - Fournir des documents supplementaires
+           - Contester la decision aupres de l'administration
+
+        Le rejet n'est pas definitif : vous pouvez toujours re-soumettre une demande corrigee.
+      buttons:
+        - title: "Messagerie"
+          payload: "/faq_messagerie"
+        - title: "Soumettre une demande"
+          payload: "/soumettre_demande"
+        - title: "Mes demandes"
+          payload: "/voir_demandes"
+
+  utter_default:
+    - text: |
+        Je n'ai pas bien compris votre question. Pouvez-vous la reformuler ?
+
+        Voici ce que je peux faire pour vous :
+      buttons:
+        - title: "Voir mes demandes"
+          payload: "/voir_demandes"
+        - title: "Soumettre une demande"
+          payload: "/soumettre_demande"
+        - title: "Types de demandes"
+          payload: "/types_demandes"
+        - title: "Delais"
+          payload: "/delais_traitement"
+        - title: "Contact"
+          payload: "/contact"
+        - title: "Aide complete"
+          payload: "/demander_aide"
+    - text: |
+        Desole, je n'ai pas compris. Essayez de poser votre question autrement, ou choisissez une option ci-dessous :
+      buttons:
+        - title: "Voir mes demandes"
+          payload: "/voir_demandes"
+        - title: "Nouvelle demande"
+          payload: "/soumettre_demande"
+        - title: "FAQ"
+          payload: "/demander_aide"
+        - title: "Contact"
+          payload: "/contact"
+
+  utter_demander_reference:
+    - text: "Veuillez me donner la reference de votre demande (format : REF-12345)."
+
+  utter_autre_question:
+    - text: "Avez-vous une autre question ?"
+      buttons:
+        - title: "Oui"
+          payload: "/affirmer"
+        - title: "Non, merci"
+          payload: "/nier"
+
+actions:
+  - action_voir_demandes
+  - action_chercher_reference
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

@@ -70,4 +70,10 @@ public class DemandeController {
     public List<Demande> mesDemandes(@PathVariable Long id) {
         return demandeService.consulterMesDemandes(id);
     }
+
+    // Chercher par référence (utilisé par Rasa chatbot)
+    @GetMapping("/reference/{reference}")
+    public Demande getByReference(@PathVariable String reference) {
+        return demandeService.consulterDemandeParReference(reference);
+    }
 }
