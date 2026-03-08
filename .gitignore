@@ -17,7 +17,7 @@ demo/.env.local
 # Rasa Chatbot
 # ========================
 rasa-chatbot/venv/
-rasa-chatbot/models/
+# rasa-chatbot/models/ -- modeles inclus pour le deploiement serveur
 rasa-chatbot/.rasa/
 rasa-chatbot/actions/__pycache__/
 __pycache__/

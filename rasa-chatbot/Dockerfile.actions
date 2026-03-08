@@ -1,0 +1,20 @@
+FROM python:3.10-slim
+
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Rasa SDK
+RUN pip install --no-cache-dir rasa-sdk==3.6.2 requests
+
+# Copy actions
+COPY actions/ ./actions/
+
+# Expose actions port
+EXPOSE 5055
+
+# Run actions server
+CMD ["rasa", "run", "actions", "--port", "5055"]

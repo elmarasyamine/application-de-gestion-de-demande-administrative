@@ -1,5 +1,6 @@
 # Endpoints pour Rasa
 # Le serveur d'actions custom (appels API vers Spring Boot)
+# En Docker: rasa-actions est le nom du service
 
 action_endpoint:
-  url: "http://localhost:5055/webhook"
+  url: "http://rasa-actions:5055/webhook"

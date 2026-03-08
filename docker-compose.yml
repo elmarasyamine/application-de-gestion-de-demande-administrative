@@ -5,14 +5,14 @@ services:
   mysql:
     image: mysql:8.0
     container_name: gestion-mysql
+    restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: ""
-      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_ROOT_PASSWORD: "Gestion@2026Secure!"
       MYSQL_DATABASE: gestion_users
     volumes:
       - mysql_data:/var/lib/mysql
     healthcheck:
-      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-p Gestion@2026Secure!" ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -25,8 +25,9 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     container_name: gestion-backend
+    restart: always
     ports:
-      - "8093:8093"
+      - "127.0.0.1:8093:8093"
     depends_on:
       mysql:
         condition: service_healthy
@@ -43,8 +44,37 @@ services:
       context: ./demo
       dockerfile: Dockerfile
     container_name: gestion-frontend
+    restart: always
     ports:
-      - "3000:80"
+      - "127.0.0.1:3000:80"
+    depends_on:
+      - backend
+
+  # ============================
+  # Rasa Server (Chatbot NLU)
+  # ============================
+  rasa:
+    build:
+      context: ./rasa-chatbot
+      dockerfile: Dockerfile
+    container_name: gestion-rasa
+    restart: always
+    ports:
+      - "127.0.0.1:5005:5005"
+    depends_on:
+      - rasa-actions
+
+  # ============================
+  # Rasa Actions Server
+  # ============================
+  rasa-actions:
+    build:
+      context: ./rasa-chatbot
+      dockerfile: Dockerfile.actions
+    container_name: gestion-rasa-actions
+    restart: always
+    environment:
+      SPRING_BOOT_API: "http://backend:8093/api"
     depends_on:
       - backend
 

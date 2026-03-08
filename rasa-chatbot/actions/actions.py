@@ -12,7 +12,9 @@ from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.events import SlotSet
 
 # URL de base de l'API Spring Boot
-SPRING_BOOT_API = "http://localhost:8093/api"
+# En Docker, utiliser le nom du service; sinon localhost
+import os
+SPRING_BOOT_API = os.environ.get("SPRING_BOOT_API", "http://localhost:8093/api")
 
 
 class ActionVoirDemandes(Action):
