@@ -16,5 +16,5 @@ COPY actions/ ./actions/
 # Expose actions port
 EXPOSE 5055
 
-# Run actions server
-CMD ["rasa", "run", "actions", "--port", "5055"]
+# Run actions server using python module (no full rasa needed)
+CMD ["python", "-m", "rasa_sdk", "--actions", "actions", "--port", "5055"]

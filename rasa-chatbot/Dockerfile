@@ -1,26 +1,20 @@
-FROM python:3.10-slim
+FROM rasa/rasa:3.6.20-full
 
+USER root
 WORKDIR /app
 
-# Install system dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential \
-    && rm -rf /var/lib/apt/lists/*
-
-# Install Rasa
-RUN pip install --no-cache-dir rasa==3.6.20
-
 # Copy project files
-COPY config.yml .
-COPY domain.yml .
-COPY credentials.yml .
-COPY data/ ./data/
+COPY --chown=1001:1001 config.yml .
+COPY --chown=1001:1001 domain.yml .
+COPY --chown=1001:1001 credentials.yml .
+COPY --chown=1001:1001 endpoints.yml .
+COPY --chown=1001:1001 data/ ./data/
+COPY --chown=1001:1001 models/ ./models/
 
-# Copy pre-trained model
-COPY models/ ./models/
+USER 1001
 
 # Expose Rasa port
 EXPOSE 5005
 
 # Run Rasa server
-CMD ["rasa", "run", "--enable-api", "--cors", "*", "--port", "5005"]
+CMD ["run", "--enable-api", "--cors", "*", "--port", "5005", "--endpoints", "endpoints.yml"]
